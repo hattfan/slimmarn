@@ -7,3 +7,10 @@ exports.index = (req, res) => {
     title: 'Home'
   });
 };
+
+
+exports.marathon = (req, res) => {
+  res.render('marathon', {
+    title: 'marathon'
+  });
+};
