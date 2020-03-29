@@ -30,6 +30,8 @@ dotenv.config({ path: '.env.example' });
  * Controllers (route handlers).
  */
 const homeController = require('./controllers/home');
+const registerMatchController = require('./controllers/registerMatch');
+const registerGameController = require('./controllers/registerGame');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
@@ -127,6 +129,10 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
  * Primary app routes.
  */
 app.get('/', homeController.index);
+app.get('/registermatch', registerMatchController.index);
+app.post('/registermatch', registerMatchController.postMatch);
+app.get('/registergame', registerGameController.index);
+app.post('/registergame', registerGameController.postGame);
 app.get('/marathon', homeController.marathon);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);

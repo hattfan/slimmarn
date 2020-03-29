@@ -1,6 +1,7 @@
 /* eslint-env jquery, browser */
-$(document).ready(() => {
+// $(document).ready(() => {
 
-  // Place JavaScript code here...
+// Place JavaScript code here...
 
-});
+
+// });

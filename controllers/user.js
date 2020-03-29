@@ -94,6 +94,7 @@ exports.postSignup = (req, res, next) => {
   req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false });
 
   const user = new User({
+    username: req.body.username,
     email: req.body.email,
     password: req.body.password
   });
