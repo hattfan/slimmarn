@@ -13,9 +13,16 @@ link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Baloo+2&dis
           a.nav-link(href='/registermatch') Registrera Match
         li.nav-item(class=(title === 'Statistik') ? 'active' : undefined)
           a.nav-link(href='/stats') Statistik
-        li.nav-item(class=(title === 'Admin') ? 'active' : undefined)
-          a.nav-link(href='/registergame') Admin
-          ul.nav.navbar-nav.ml-auto
+        li.dropdown(class=(title === 'Admin') ? 'active' : undefined).nav-item
+          a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown') 
+            span Admin
+          div.dropdown-menu
+            a.dropdown-item(href='/registergame') 
+              i.fas.fa-chess-rook
+              | Administrera spel
+            a.dropdown-item(href='/adminmatches')
+              i.fas.fa-dice
+              | Administrera matcher
         if !user
           li.nav-item(class=(title === 'Login') ? 'active' : undefined)
             a.nav-link(href='/login') Logga in
