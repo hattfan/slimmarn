@@ -1,7 +1,12 @@
 ﻿function drawLineChart(gameId, idOfPlayers, gameChoice, result) {
     console.log('gameId', gameId, 'idOfPlayers', idOfPlayers, 'gameChoice', gameChoice, 'result', result);
     var labelsForChart = [];
-    for (var i = 0; i < gameChoice.length; i++) labelsForChart.push([i + 1, moment(gameChoice[i].createdAt).format("DD/MM/YY")]); // skapar labels under grafen
+    debugger;
+    for (var i = 0; i < gameChoice.length; i++){
+        debugger;
+        console.log(gameChoice[i].createdAt, moment(gameChoice[i].createdAt).format("DD/MM/YY"))
+        labelsForChart.push([i + 1, moment(gameChoice[i].createdAt).format("DD/MM/YY")]); // skapar labels under grafen
+    } 
     var datasetsForLineChart = createDataSetsForLineChart(idOfPlayers, gameChoice, result); //skapar samtliga dataset
     new Chart(document.getElementById("line-chart"), {
         type: 'line',

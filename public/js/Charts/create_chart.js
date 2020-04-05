@@ -27,7 +27,6 @@ function drawChart(idOfSelectedGame) {
     drawBarChart(idOfSelectedGame, idOfPlayers, gameChoice);
     drawComboChart(idOfSelectedGame, idOfPlayers, gameChoice);
     //drawBarChart(idOfSelectedGame, idOfPlayers, gameChoice, labelsForChart);
-
 }
 
 

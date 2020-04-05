@@ -17,7 +17,7 @@ exports.index = (req, res) => {
 };
 
 exports.matches = (req, res) => {
-    Match.find({}, (err, allMatches) => {
+    Match.find({}).sort({'createdAt':1}).exec((err, allMatches) => {
         if (err) { return next(err); }
         res.json(allMatches);
     });
