@@ -17,6 +17,7 @@ const matchSchema = new mongoose.Schema({
   player7result: Number,
   player8: String,
   player8result: Number,
+  comment: String,
   game: String
 }, { timestamps: true });
 

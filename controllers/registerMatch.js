@@ -12,7 +12,7 @@ exports.index = (req, res) => {
     if (err) { return next(err); }
     allUsers.unshift("");
     console.log(allUsers);
-    Game.find({}, (err, allGames) => {
+    Game.find({}).sort('name').exec(function(err, allGames) {
       if (err) { return next(err); }
       res.render('registerMatch', {
         title: 'RegisterMatch',
@@ -41,11 +41,13 @@ exports.postMatch = (req, res) => {
     player7result: req.body.player7result,
     player8: req.body.player8,
     player8result: req.body.player8result,
+    comment: req.body.comment,
     game: req.body.game
   });
 
   match.save((err) => {
     if (err) { return next(err); }
+    req.flash('success', { msg: `Matchen i ${req.body.game} är registrerad`});
     res.redirect('/');
   });
 };

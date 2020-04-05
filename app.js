@@ -35,6 +35,7 @@ const registerGameController = require('./controllers/registerGame');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
+const statsController = require('./controllers/stats');
 
 /**
  * API keys and Passport configuration.
@@ -133,6 +134,10 @@ app.get('/registermatch', registerMatchController.index);
 app.post('/registermatch', registerMatchController.postMatch);
 app.get('/registergame', registerGameController.index);
 app.post('/registergame', registerGameController.postGame);
+app.get('/stats', statsController.index);
+app.get('/stats/matches', statsController.matches);
+app.get('/stats/games', statsController.games);
+app.get('/stats/users', statsController.users);
 app.get('/marathon', homeController.marathon);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);

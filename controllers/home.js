@@ -14,3 +14,9 @@ exports.marathon = (req, res) => {
     title: 'marathon'
   });
 };
+
+exports.stats = (req, res) => {
+  res.render('stats', {
+    title: 'stats'
+  });
+};

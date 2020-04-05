@@ -82,6 +82,9 @@ block content
             option(value=val.id) #{val.username}
         label(for='player8result') Spelare 8 - Resultat:
         input#player8result.form-control(type="number" name="player8result")
+      div
+        label(for='comment') Kommentar:
+        input#comment.form-control(type="text-area" name="comment")
 
     button.btn.btn-success(type='submit') Registrera
     button#addPlayers.btn.btn-primary(type='button') Fler spelare

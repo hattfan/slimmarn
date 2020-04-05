@@ -6,14 +6,16 @@ exports.index = (req, res) => {
 };
 
 exports.postGame = (req, res) => {
-  console.log('postinggame')
+  console.log(req.body)
   const game = new Game({
     name: req.body.name,
-    teamBased: req.body.teamBased,
-    reverseCounting: req.body.reverseCounting
+    setBased: req.body.setBased === "on" ? true : false,
+    teamBased: req.body.teamBased  === "on" ? true : false,
+    reverseCounting: req.body.reverseCounting === "on" ? true : false
   });
   game.save((err) => {
     if (err) { return next(err); }
-    res.redirect('/');
+    req.flash('success', { msg: `Spelet ${req.body.name} registrerat 👍` });
+    res.redirect('/registergame');
   });
 };
