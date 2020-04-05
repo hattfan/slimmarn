@@ -8,11 +8,11 @@ const Match = require('../models/Match');
 const Game = require('../models/Game');
 
 exports.index = (req, res) => {
-  User.find({}, (err, allUsers) => {
+  User.find({}).sort('name').exec((err, allUsers) => {
     if (err) { return next(err); }
     allUsers.unshift("");
     console.log(allUsers);
-    Game.find({}).sort('name').exec(function(err, allGames) {
+    Game.find({}).sort('name').exec((err, allGames) => {
       if (err) { return next(err); }
       res.render('registerMatch', {
         title: 'RegisterMatch',
