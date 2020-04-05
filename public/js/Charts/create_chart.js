@@ -14,7 +14,7 @@ document.querySelectorAll(".game-selector").forEach(selector =>{
 
 function drawChart(idOfSelectedGame) {
     resetCharts();
-    gameChoice = statistics.filter(row => row.Spel === idOfSelectedGame);
+    gameChoice = statistics.filter(row => row.game === idOfSelectedGame);
     idOfPlayers = uniquePlayers(gameChoice); 
     names = convertIdsIntoNames(idOfPlayers);
     playerAttributes['names'] = convertIdsIntoNames(idOfPlayers);
