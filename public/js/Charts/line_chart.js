@@ -9,7 +9,7 @@
     new Chart(document.getElementById("line-chart"), {
         type: 'line',
         data: {
-            // labels: labelsForChart,
+            labels: labelsForChart,
             datasets: datasetsForLineChart
         },
         options: {
