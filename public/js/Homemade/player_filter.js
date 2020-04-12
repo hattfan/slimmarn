@@ -18,6 +18,7 @@ function playerButtonColoring() {
 
 function addColoringToPlayerButton(btn) {
     btn.addEventListener("click", function (e) {
+        debugger;
         if(e.target.dataset.key === "active"){
             e.target.dataset.key = "inactive";
             e.target.classList.remove("btn-success");

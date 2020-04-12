@@ -3,7 +3,7 @@ const Match = require('../models/Match');
 const Game = require('../models/Game');
 
 exports.index = (req, res) => {
-    Game.find({}, (err, allGames) => {
+    Game.find({}).sort({"name":1}).exec((err, allGames) => {
         if (err) { return next(err); }
         User.find({}, (err, allUsers) => {
             if (err) { return next(err); }

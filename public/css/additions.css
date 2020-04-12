@@ -1,0 +1,28 @@
+.game-selector, .player-button{
+    border-radius: 5px;
+    padding: 2px 6px;
+    margin: 1px;
+  }
+
+.filter-container{
+    border: 1px #aaa solid;
+    padding: 3px;
+    border-radius: 5px;
+    background: #f7f5f5;
+    box-shadow: 1px 1px #ccc
+}
+
+/* .chart-container{
+    border: 1px #aaa solid;
+    padding: 3px;
+    border-radius: 5px;
+    box-shadow: 1px 1px #ccc;
+} */
+
+#line-chart{
+    height:400px !important;
+}
+
+#bar-chart, #grouped-bar-chart{
+    height:195px !important;
+}

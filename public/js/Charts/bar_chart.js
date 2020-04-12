@@ -68,6 +68,7 @@ function drawActualBarChart(names, barChartDataSet, gameId) {
             datasets: barChartDataSet
         },
         options: {
+            maintainAspectRatio: false,
             legend: { display: false },
             title: {
                 display: true,

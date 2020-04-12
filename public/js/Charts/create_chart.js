@@ -8,11 +8,13 @@ var originalFilterForSpecificGame = {};
 
 document.querySelectorAll(".game-selector").forEach(selector =>{
     selector.addEventListener("click", btn => {
+        document.querySelector("#player-selection").style.display = "";
         drawChart(btn.target.dataset.id);
     });
 });
 
 function drawChart(idOfSelectedGame) {
+    gameId = idOfSelectedGame;
     resetCharts();
     gameChoice = statistics.filter(row => row.game === idOfSelectedGame);
     idOfPlayers = uniquePlayers(gameChoice); 

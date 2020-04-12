@@ -41,6 +41,7 @@ function drawActualComboChart(names, datasetForComboChart, gameId) {
             ]
         },
         options: {
+            maintainAspectRatio: false,
             title: {
                 display: true,
                 text: 'StdDev & Medelvärde'

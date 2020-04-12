@@ -1,10 +1,8 @@
 ﻿function drawLineChart(gameId, idOfPlayers, gameChoice, result) {
-    console.log('gameId', gameId, 'idOfPlayers', idOfPlayers, 'gameChoice', gameChoice, 'result', result);
+    console.log(gameId);
+    var widths = calculateChartSize();    
     var labelsForChart = [];
-    debugger;
     for (var i = 0; i < gameChoice.length; i++){
-        debugger;
-        console.log(gameChoice[i].createdAt, moment(gameChoice[i].createdAt).format("DD/MM/YY"))
         labelsForChart.push([i + 1, moment(gameChoice[i].createdAt).format("DD/MM/YY")]); // skapar labels under grafen
     } 
     var datasetsForLineChart = createDataSetsForLineChart(idOfPlayers, gameChoice, result); //skapar samtliga dataset
@@ -16,6 +14,8 @@
         },
         options: {
             spanGaps: true,
+            responsive: true,
+            maintainAspectRatio: false,
             title: {
                 display: true,
                 text: "Statistik för: " + games.filter(game => gameId === game._id)[0].name
@@ -52,4 +52,18 @@ function createDataSetsForLineChart(idOfPlayers, gameChoice, result) {
         }
     }
     return datasetsForLineChart;
+}
+
+function calculateChartSize(){
+    var filterContainerWidth = document.querySelector(".filter-container").offsetWidth;
+    var chartWidth = {};
+    if(filterContainerWidth > 700) {
+        chartWidth.lineWidth = filterContainerWidth*(3/4);
+        chartWidth.barWidth = filterContainerWidth*(1/4);
+    }
+    else {
+        chartWidth.lineWidth = filterContainerWidth;
+        chartWidth.barWidth = filterContainerWidth*(1/2);
+    }
+    return chartWidth;
 }

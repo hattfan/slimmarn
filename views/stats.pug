@@ -1,21 +1,21 @@
 extends layout
 
 block content
-  h1 🕹Stats
-  each game in games
-    button(type='button' class='btn btn-primary game-selector' data-id = game._id) #{game.name} 
-
-  .player-button-container
+  .filter-container
+    each game in games
+      button(type='button' class='btn btn-primary game-selector' data-id = game._id) #{game.icon} #{game.name}   
+  .filter-container#player-selection(style="display:none")
+    .player-button-container
 
   .row
     .col-md-8
-      div#main-chart-container
+      div#main-chart-container.chart-container
         canvas#line-chart
 
     .col-md-4
       .row
-        div#bar-chart-container
-        div#grouped-bar-chart-container
+        div#bar-chart-container.chart-container
+        div#grouped-bar-chart-container.chart-container
   
 
   script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js")
@@ -25,4 +25,4 @@ block content
   script(src="js/Charts/line_chart.js")
   script(src="js/Charts/bar_chart.js")
   script(src="js/Charts/grouped_bar_chart.js")
-  script(src="js/Homemade/button_coloring.js")
+  script(src="js/Homemade/player_filter.js")
