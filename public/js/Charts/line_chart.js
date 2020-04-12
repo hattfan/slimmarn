@@ -14,7 +14,6 @@
         },
         options: {
             spanGaps: true,
-            responsive: true,
             maintainAspectRatio: false,
             title: {
                 display: true,
