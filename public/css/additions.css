@@ -26,3 +26,12 @@
 #bar-chart, #grouped-bar-chart{
     height:195px !important;
 }
+
+html{
+    font-family: 'Exo 2', sans-serif;
+}
+
+body{
+    font-family: 'Exo 2', sans-serif;
+
+}
