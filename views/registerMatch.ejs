@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <%- include('partial/header') %>
+  <%- include('partial/sidebar') %>
+  <style>
+    .challenge {
+      cursor: pointer;
+    }
+  </style>
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <%- include('partial/topbar') %>
+
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+
+        <%- include('partial/flash') %>
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        </div>
+
+        <!-- Content Row -->
+        <div class="row">
+
+          <div class="col-xl-12">
+            <div class="card shadow mb-4">
+              <!-- Card Header - Dropdown -->
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Välj match att registrera</h6>
+              </div>
+              <!-- Card Body -->
+              <div class="card-body">
+                <a href="#" class="btn btn-info btn-icon-split">
+                  <span class="icon text-white-50">
+                    <i class="fas fa-random"></i>
+                  </span>
+                  <span class="text">Spontanmatch</span>
+                </a>
+
+                <a href="#" class="btn btn-primary btn-icon-split">
+                  <span class="icon text-white-50">
+                    <i class="fas fa-flag"></i>
+                  </span>
+                  <span class="text">27/7 - Röva</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="card shadow mb-4">
+              <!-- Card Header - Dropdown -->
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Tabellen</h6>
+              </div>
+              <!-- Card Body -->
+              <div class="card-body">
+                <div class="alert alert-danger" id="validation-results" style="display: none;">
+                </div>
+                <form action="postmatch" method="post">
+                  <input type="hidden" name='_csrf' , value="<%= _csrf %>">
+                  <!-- SET 1 -->
+                  <div class="set-divider" style="padding: 5 px;">
+                    <h4>Set 1</h4>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <label for="">Röva</label>
+                        <select class="form-control" name="team1-set1" id="team1-set1">
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-6">
+                        <label for="">Motståndare</label>
+                        <select class="form-control" name="team2-set1" id="team2-set1">
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+
+                  <!-- SET 2 -->
+                  <div class="set-divider" style=" padding: 5px;">
+                    <h4>Set 2</h4>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <label for="">Röva</label>
+                        <select onchange="checkForDecidingSet()" class="form-control" name="team1-set2" id="team1-set2">
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-6">
+                        <label for="">Motståndare</label>
+                        <select onchange="checkForDecidingSet()" class="form-control" name="team2-set2" id="team2-set2">
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+
+                  <!-- SET 3 -->
+                  <div class="set-divider" style=" padding: 5px;">
+                    <h4>Set 3</h4>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <label for="">Röva</label>
+                        <select class="form-control" name="team1-set3" id="team1-set3">
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-6">
+                        <label for="">Motståndare</label>
+                        <select class="form-control" name="team2-set3" id="team2-set3">
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <button type="submit" onclick="validateResult()" class="btn btn-block btn-success">Registrera resultat</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <%- include('partial/footer') %>
+          </body>
+          <script>
+            //Implementera ev check för ett 3:e set
+            function checkForDecidingSet() {
+              document.querySelector("team1-set2");
+              document.querySelector("team2-set2");
+            }
+
+            //Implentera check av resultatet så att det går att se om någon faktiskt har vunnit setet
+            function validateResult() {
+            }
+          </script>
+
+</html>

@@ -30,8 +30,8 @@ dotenv.config({ path: '.env.example' });
  * Controllers (route handlers).
  */
 const homeController = require('./controllers/home');
+const adminController = require('./controllers/admin');
 const registerMatchController = require('./controllers/registerMatch');
-const registerGameController = require('./controllers/registerGame');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
@@ -67,7 +67,7 @@ mongoose.connection.on('error', (err) => {
 app.set('host', process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0');
 app.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 app.use(expressStatusMonitor());
 app.use(compression());
 app.use(sass({
@@ -129,16 +129,14 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 /**
  * Primary app routes.
  */
-app.get('/', homeController.index);
-app.get('/registermatch', registerMatchController.index);
-app.post('/registermatch', registerMatchController.postMatch);
-app.get('/registergame', registerGameController.index);
-app.post('/registergame', registerGameController.postGame);
-app.get('/stats', statsController.index);
-app.get('/stats/matches', statsController.matches);
-app.get('/stats/games', statsController.games);
-app.get('/stats/users', statsController.users);
-app.get('/marathon', homeController.marathon);
+app.get('/', passportConfig.isAuthenticated, adminController.index);
+app.post('/createTeam', passportConfig.isAuthenticated, adminController.createTeam);
+app.get('/booking', passportConfig.isAuthenticated, adminController.booking);
+app.get('/settings', passportConfig.isAuthenticated, adminController.settings);
+app.get('/challenge/:id', passportConfig.isAuthenticated, adminController.challenge);
+app.post('/sendChallengeEmail', passportConfig.isAuthenticated, adminController.sendChallengeEmail);
+app.get('/registermatch', passportConfig.isAuthenticated, registerMatchController.index);
+app.post('/postmatch', passportConfig.isAuthenticated, registerMatchController.postMatch);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -148,8 +146,6 @@ app.get('/reset/:token', userController.getReset);
 app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
-app.get('/contact', contactController.getContact);
-app.post('/contact', contactController.postContact);
 app.get('/account/verify', passportConfig.isAuthenticated, userController.getVerifyEmail);
 app.get('/account/verify/:token', passportConfig.isAuthenticated, userController.getVerifyEmailToken);
 app.get('/account', passportConfig.isAuthenticated, userController.getAccount);

@@ -1,0 +1,85 @@
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Team Modal-->
+<div class="modal fade" id="createTeam" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="createTeam" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Skapa lag</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name='_csrf' , value="<%= _csrf %>">
+                    <input class="form-control" type="text" name="teamName" id="teamName" placeholder="Lagnamn"
+                        required>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Skapa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Create Team Modal-->
+<div class="modal fade bd-example-modal-xl" id="challengeOpponent" tabindex="-1" role="dialog"
+    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <form action="sendChallengeEmail" method="post">
+                <input type="hidden" name='_csrf' , value="<%= _csrf %>">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Utmana lag</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="padding: 0;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Lagnamn</th>
+                                <th scope="col">Spelare 1</th>
+                                <th scope="col">Spelare 2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" id="team-name"></th>
+                                <td id="team-player1-name"></td>
+                                <td id="team-player2-name"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Utmana</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

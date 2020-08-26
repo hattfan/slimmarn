@@ -1,24 +1,17 @@
 const mongoose = require('mongoose');
 
 const matchSchema = new mongoose.Schema({
-  player1: String,
-  player1result: Number,
-  player2: String,
-  player2result: Number,
-  player3: String,
-  player3result: Number,
-  player4: String,
-  player4result: Number,
-  player5: String,
-  player5result: Number,
-  player6: String,
-  player6result: Number,
-  player7: String,
-  player7result: Number,
-  player8: String,
-  player8result: Number,
-  comment: String,
-  game: String
+  team1: String,
+  team2: String,
+  team1set1: Number,
+  team1set2: Number,
+  team1set3: Number,
+  team2set1: Number,
+  team2set2: Number,
+  team2set3: Number,
+  team1setWins: String,
+  team2setWins: String,
+  game: String,
 }, { timestamps: true });
 
 const Match = mongoose.model('Match', matchSchema);

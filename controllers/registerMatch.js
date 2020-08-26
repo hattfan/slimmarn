@@ -8,46 +8,46 @@ const Match = require('../models/Match');
 const Game = require('../models/Game');
 
 exports.index = (req, res) => {
-  User.find({}).sort('name').exec((err, allUsers) => {
-    if (err) { return next(err); }
-    allUsers.unshift("");
-    console.log(allUsers);
-    Game.find({}).sort('name').exec((err, allGames) => {
-      if (err) { return next(err); }
-      res.render('registerMatch', {
-        title: 'RegisterMatch',
-        allUsers: allUsers,
-        allGames: allGames
-      });
-    });
+  res.render('registerMatch', {
+    title: 'Registermatch'
   });
 };
 
 exports.postMatch = (req, res) => {
+  setWins = calculateSetWins(req.body);
   const match = new Match({
-    player1: req.body.player1,
-    player1result: req.body.player1result,
-    player2: req.body.player2,
-    player2result: req.body.player2result,
-    player3: req.body.player3,
-    player3result: req.body.player3result,
-    player4: req.body.player4,
-    player4result: req.body.player4result,
-    player5: req.body.player5,
-    player5result: req.body.player5result,
-    player6: req.body.player6,
-    player6result: req.body.player6result,
-    player7: req.body.player7,
-    player7result: req.body.player7result,
-    player8: req.body.player8,
-    player8result: req.body.player8result,
-    comment: req.body.comment,
+    team1: req.body.team1,
+    team2: req.body.team2,
+    team1set1: req.body["team1-set1"],
+    team1set2: req.body["team1-set2"],
+    team1set3: req.body["team1-set3"],
+    team2set1: req.body["team2-set1"],
+    team2set2: req.body["team2-set2"],
+    team2set3: req.body["team2-set3"],
+    team1setWins: setWins.team1counter,
+    team2setWins: setWins.team2counter,
     game: req.body.game
   });
 
   match.save((err) => {
     if (err) { return next(err); }
-    req.flash('success', { msg: `Matchen i ${req.body.game} är registrerad`});
+    req.flash('success', { msg: `Matchen mellan ${req.body.team1} och ${req.body.team2} är registrerad` });
     res.redirect('/');
   });
 };
+
+function calculateSetWins(results){
+  team1counter = 0;
+  team2counter = 0;
+  if(results["team1-set1"] > results["team2-set1"]){team1counter++;}
+  if(results["team1-set2"] > results["team2-set2"]){team1counter++;}
+  if(results["team1-set3"] > results["team2-set3"]){team1counter++;}
+  if(results["team2-set1"] > results["team1-set1"]){team2counter++;}
+  if(results["team2-set2"] > results["team1-set2"]){team2counter++;}
+  if(results["team2-set3"] > results["team1-set3"]){team2counter++;}
+  setCounter = {
+    'team1counter': team1counter,
+    'team2counter': team2counter
+  };
+  return setCounter;
+}
