@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const Match = require('../models/Match');
-const Game = require('../models/Game');
+const Game = require('../models/Spot');
 
 exports.index = (req, res) => {
     Game.find({}).sort({"name":1}).exec((err, allGames) => {

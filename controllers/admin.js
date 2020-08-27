@@ -1,15 +1,18 @@
 var nodemailer = require('nodemailer');
 
-const { spawn } = require('child_process');
+const Spot = require('../models/Spot');
+const User = require('../models/User');
+
 exports.index = (req, res) => {
-  res.render('index', {
-    title: 'Home'
+  Spot.find({}, (err, spots) => {
+    if (err) { return next(err); }
+
+    res.render('index', {
+      title: 'Home',
+      spots: spots
+    });
   });
 };
-
-const Team = require('../models/Team');
-const User = require('../models/User');
-const Match = require('../models/Match');
 
 exports.createTeam = (req, res) => {
 
@@ -83,7 +86,7 @@ exports.challenge = (req, res) => {
 exports.sendChallengeEmail = (req, res) => {
 
   console.log("sendChallengeEmail");
-  
+
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {

@@ -31,7 +31,6 @@ dotenv.config({ path: '.env.example' });
  */
 const homeController = require('./controllers/home');
 const adminController = require('./controllers/admin');
-const registerMatchController = require('./controllers/registerMatch');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
@@ -130,13 +129,9 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
  * Primary app routes.
  */
 app.get('/', passportConfig.isAuthenticated, adminController.index);
-app.post('/createTeam', passportConfig.isAuthenticated, adminController.createTeam);
-app.get('/booking', passportConfig.isAuthenticated, adminController.booking);
-app.get('/settings', passportConfig.isAuthenticated, adminController.settings);
 app.get('/challenge/:id', passportConfig.isAuthenticated, adminController.challenge);
 app.post('/sendChallengeEmail', passportConfig.isAuthenticated, adminController.sendChallengeEmail);
-app.get('/registermatch', passportConfig.isAuthenticated, registerMatchController.index);
-app.post('/postmatch', passportConfig.isAuthenticated, registerMatchController.postMatch);
+
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);

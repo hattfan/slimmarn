@@ -18,22 +18,89 @@
     </div>
 </div>
 
-<!-- Create Team Modal-->
-<div class="modal fade" id="createTeam" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<!-- Large modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" id="createSpot">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form action="createTeam" method="post">
+            <form action="createSpot" method="post">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Skapa lag</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Skapa spot</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name='_csrf' , value="<%= _csrf %>">
-                    <input class="form-control" type="text" name="teamName" id="teamName" placeholder="Lagnamn"
-                        required>
+                    <input class="input-group" type="hidden" name='_csrf' , value="<%= _csrf %>">
+
+                    <!-- Marker map -->
+                    <style>
+                        /* Set the size of the div element that contains the map */
+                        #add-marker-map {
+                            height: 400px;
+                            /* The height is 400 pixels */
+                            width: 100%;
+                            /* The width is the width of the web page */
+                        }
+                    </style>
+                    </script>
+                    <label for="basic-url">Namn på spot</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3"><i class="fas fa-signature"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="basic-url" placeholder="Namn på spot"
+                            aria-describedby="basic-addon3">
+                    </div>
+
+                    <label for="basic-url">Koordinater</label>
+                    <br>
+                    <small><i class="fas fa-exclamation-triangle"></i> Sätt ut pin på kartan för att markera
+                        spotten</small>
+                    <!-- Karta -->
+                    <div id="add-marker-map"></div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            Launchvänligt
+                        </div>
+                        <input type="hidden" name="launchFriendly">
+                        <div style="text-align: right;" class="col-xl-6">
+                            <% for( let i = 0; i < 10; i++ ) { %>
+                            <i data-launchFriendlyValue = <%= i %> class="far fa-star" class="launchFriendly-click" onclick="launchFriendlyClick(this)"></i>
+                            <% } %>
+                        </div>
+                    </div>
+                    <hr>
+
+                    
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Recipient's username"
+                            aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2">@example.com</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <div class="input-group-append">
+                            <span class="input-group-text">.00</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">With textarea</span>
+                        </div>
+                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
@@ -44,42 +111,14 @@
     </div>
 </div>
 
-<!-- Create Team Modal-->
-<div class="modal fade bd-example-modal-xl" id="challengeOpponent" tabindex="-1" role="dialog"
-    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <form action="sendChallengeEmail" method="post">
-                <input type="hidden" name='_csrf' , value="<%= _csrf %>">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Utmana lag</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="padding: 0;">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Lagnamn</th>
-                                <th scope="col">Spelare 1</th>
-                                <th scope="col">Spelare 2</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row" id="team-name"></th>
-                                <td id="team-player1-name"></td>
-                                <td id="team-player2-name"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Utmana</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<script>
+    function launchFriendlyClick(e) {
+        for (let i = 0; i < parseInt(e.getAttribute("data-launchFriendlyValue")); i++) {
+            document.querySelector(`[data-launchFriendlyValue='${i}']`) = "gold";
+;
+        }
+        parseInt(e.getAttribute("data-value"));
+        
+    }
+
+</script>
