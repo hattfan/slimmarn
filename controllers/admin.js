@@ -14,6 +14,14 @@ exports.index = (req, res) => {
   });
 };
 
+exports.createSpot = (req, res) => {
+  // Spot.find({}, (err, spots) => {
+  //   if (err) { return next(err); }
+  console.log(req.body);
+  
+    res.redirect('/');
+};
+
 exports.createTeam = (req, res) => {
 
   const team = new Team({

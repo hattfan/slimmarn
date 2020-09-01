@@ -42,6 +42,21 @@
                             width: 100%;
                             /* The width is the width of the web page */
                         }
+                        .arrow{
+                            cursor: pointer;
+                        }
+                        .red{
+                            color:red;
+                        }
+                        .yellow{
+                            color:yellow;
+                        }
+                        .green{
+                            color:green;
+                        }
+                        .star{
+                            cursor: pointer;
+                        }
                     </style>
                     </script>
                     <label for="basic-url">Namn på spot</label>
@@ -55,48 +70,113 @@
 
                     <label for="basic-url">Koordinater</label>
                     <br>
-                    <small><i class="fas fa-exclamation-triangle"></i> Sätt ut pin på kartan för att markera
+                    <small class="text-danger"><i class="fas fa-exclamation-triangle"></i> Sätt ut pin på kartan för att
+                        markera
                         spotten</small>
                     <!-- Karta -->
                     <div id="add-marker-map"></div>
+                    <input type="hidden" name="coordinatesLat">
+                    <input type="hidden" name="coordinatesLng">
                     <hr>
+                    <!-- Launchvänligt -->
                     <div class="row">
                         <div class="col-xl-6">
                             Launchvänligt
                         </div>
                         <input type="hidden" name="launchFriendly">
                         <div style="text-align: right;" class="col-xl-6">
+                            <em>(<span id="launchFriendlyText">0</span>/10)</em>
                             <% for( let i = 0; i < 10; i++ ) { %>
-                            <i data-launchFriendlyValue = <%= i %> class="far fa-star" class="launchFriendly-click" onclick="launchFriendlyClick(this)"></i>
+                            <i data-launchFriendlyValue=<%= i %> class="star far fa-star" class="launchFriendly-click"
+                                onclick="starClick(this, 'launchFriendly')"></i>
                             <% } %>
                         </div>
                     </div>
                     <hr>
-
-                    
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Recipient's username"
-                            aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">@example.com</span>
+                    <!-- Långgrunt -->
+                    <div class="row">
+                        <div class="col-xl-6">
+                            Långgrunt
+                        </div>
+                        <input type="hidden" name="shallow">
+                        <div style="text-align: right;" class="col-xl-6">
+                            <em>(<span id="shallowText">0</span>/10)</em>
+                            <% for( let i = 0; i < 10; i++ ) { %>
+                            <i data-shallowValue=<%= i %> class="star far fa-star" class="shallow-click"
+                                onclick="starClick(this, 'shallow')"></i>
+                            <% } %>
                         </div>
                     </div>
-
-
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">$</span>
+                    <hr>
+                    <!-- Vågor -->
+                    <div class="row">
+                        <div class="col-xl-6">
+                            Vågor
                         </div>
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                        <div class="input-group-append">
-                            <span class="input-group-text">.00</span>
+                        <input type="hidden" name="waves">
+                        <div style="text-align: right;" class="col-xl-6">
+                            <em>(<span id="wavesText">0</span>/10)</em>
+                            <% for( let i = 0; i < 10; i++ ) { %>
+                            <i data-wavesValue=<%= i %> class="star far fa-star" class="waves-click"
+                                onclick="starClick(this, 'waves')"></i>
+                            <% } %>
                         </div>
                     </div>
-
+                    <hr>
+                    <!-- Tillgänglighet -->
+                    <div class="row">
+                        <div class="col-xl-6">
+                            Tillgänglighet
+                        </div>
+                        <input type="hidden" name="accesibility">
+                        <div style="text-align: right;" class="col-xl-6">
+                            <em>(<span id="accesibilityText">0</span>/10)</em>
+                            <% for( let i = 0; i < 10; i++ ) { %>
+                            <i data-accesibilityValue=<%= i %> class="star far fa-star" class="accesibility-click"
+                                onclick="starClick(this, 'accesibility')"></i>
+                            <% } %>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            Vindriktningar
+                            <br>
+                            <small class="text-danger"><i class="fas fa-exclamation-triangle"></i> Klicka på pilen för att ändra hur bra riktningen är på spoten</small>
+                            <div class="arrow-container" style="text-align: center;font-size: 2rem; margin-top: 5px; padding: 1rem; border: 1px solid rgba(0,0,0,.1); border-radius: 5px;">
+                                <div class="n-arrow">
+                                    <i data-value="0" id="n-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-down"></i>
+                                    <input type="hidden" value="0" name="n-arrow">
+                                </div>
+                                <div class="nw-ne-arrow">
+                                    <i data-value="0" id="ne-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-right" style="transform: rotate(45deg);margin-right: 80px;"></i>
+                                    <input type="hidden" value="0" name="ne-arrow">
+                                    <i data-value="0" id="nw-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-left" style="transform: rotate(-45deg);"></i>
+                                    <input type="hidden" value="0" name="nw-arrow">
+                                </div>
+                                <div class="w-e-arrow">
+                                    <i data-value="0" id="w-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-right" style="margin-right: 160px;"></i>
+                                    <input type="hidden" value="0" name="w-arrow">
+                                    <i data-value="0" id="e-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-left"></i>
+                                    <input type="hidden" value="0" name="e-arrow">
+                                </div>
+                                <div class="sw-se-arrow">
+                                    <i data-value="0" id="sw-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-right" style="transform: rotate(-45deg);margin-right: 80px;"></i>
+                                    <input type="hidden" value="0" name="sw-arrow">
+                                    <i data-value="0" id="se-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-left" style="transform: rotate(45deg);"></i>
+                                    <input type="hidden" value="0" name="se-arrow">
+                                </div>
+                                <div class="n-arrow">
+                                    <i data-value="0" id="s-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-up"></i>
+                                    <input type="hidden" value="0" name="s-arrow">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">With textarea</span>
+                            <span class="input-group-text">Beskrivning</span>
                         </div>
                         <textarea class="form-control" aria-label="With textarea"></textarea>
                     </div>
@@ -112,13 +192,52 @@
 </div>
 
 <script>
-    function launchFriendlyClick(e) {
-        for (let i = 0; i < parseInt(e.getAttribute("data-launchFriendlyValue")); i++) {
-            document.querySelector(`[data-launchFriendlyValue='${i}']`) = "gold";
-;
+    function starClick(e, attributeType) {
+        var numberClicked = parseInt(e.getAttribute(`data-${attributeType}Value`));
+        document.querySelector(`#${attributeType}Text`).textContent = numberClicked + 1;
+        document.querySelector(`[name='${attributeType}']`).value = numberClicked + 1;
+        for (let i = 0; i < 10; i++) {
+            if (numberClicked >= i) {
+                document.querySelector(`[data-${attributeType}Value='${i}']`).classList.remove("far");
+                document.querySelector(`[data-${attributeType}Value='${i}']`).classList.add("fas");
+            }
+            else {
+                document.querySelector(`[data-${attributeType}Value='${i}']`).classList.remove("fas");
+                document.querySelector(`[data-${attributeType}Value='${i}']`).classList.add("far");
+            }
         }
-        parseInt(e.getAttribute("data-value"));
+    }
+
+    function arrowClick(e) {
+        var directionClicked = e.getAttribute("id");
+        var currentArrowValue = parseInt(e.getAttribute("data-value"));
+        var input = document.querySelector(`input[name="${directionClicked}"]`);
         
+        if(currentArrowValue < 2){
+            input.value = currentArrowValue + 1;
+            e.setAttribute("data-value", currentArrowValue + 1);
+        } else{
+            e.setAttribute("data-value", 0);
+            input.value = 0;
+        }
+        debugger
+        switch (parseInt(input.value)) {
+            case 0:
+                e.classList.remove("green");
+                e.classList.add("red");
+                break;
+            case 1:
+                e.classList.remove("red");
+                e.classList.add("yellow");
+                break;
+            case 2:
+                e.classList.remove("yellow");
+                e.classList.add("green");
+                break;
+        
+            default:
+                break;
+        }
     }
 
 </script>

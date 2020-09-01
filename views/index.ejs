@@ -27,6 +27,9 @@
           padding-left: 0.75rem;
           padding-right: 0.75rem;
         }
+        .fas.fa-star{
+          color: gold;
+        }
       </style>
 
       <!-- Content Row -->
@@ -142,6 +145,8 @@
       function placeMarker(location) {
         if (marker) {
           marker.setPosition(location);
+          document.querySelector('input[name="coordinatesLat"]').value = marker.getPosition().lat();
+          document.querySelector('input[name="coordinatesLng"]').value = marker.getPosition().lng();
         } else {
           marker = new google.maps.Marker({
             position: location,
@@ -162,6 +167,7 @@
           map.setZoom(14);
           map.setCenter(marker.getPosition());
         });
+        
         const infowindow = new google.maps.InfoWindow({
           content: `<strong>${spot.name}</strong>`
         });
@@ -182,7 +188,7 @@
 
       }
       function setStars(spot) {
-        var star = '<i class="fas fa-star" style="color: gold;"></i>';
+        var star = '<i class="fas fa-star"></i>';
         var nonStar = '<i class="far fa-star"></i>';
         Object.keys(spot.reviews).forEach(reviewType => {
           let stars = '';
