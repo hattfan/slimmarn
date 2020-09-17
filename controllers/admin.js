@@ -7,7 +7,7 @@ exports.index = (req, res) => {
   Spot.find({}, (err, spots) => {
     if (err) { return next(err); }
 
-    res.render('index', {
+    res.render('starter', {
       title: 'Home',
       spots: spots
     });
