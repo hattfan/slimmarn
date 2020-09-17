@@ -15,11 +15,34 @@ exports.index = (req, res) => {
 };
 
 exports.createSpot = (req, res) => {
-  // Spot.find({}, (err, spots) => {
-  //   if (err) { return next(err); }
   console.log(req.body);
   
+  const spot = new Spot({
+    name: req.body.name,
+    lon: req.body.coordinatesLon,
+    lat: req.body.coordinatesLat,
+    windDirections: {
+      N:req.body['n-arrow'],
+      NO:req.body['no-arrow'],
+      NV:req.body['nv-arrow'],
+      O:req.body['o-arrow'],
+      V:req.body['v-arrow'],
+      SO:req.body['so-arrow'],
+      SV:req.body['sv-arrow'],
+      S:body.req['s-arrow'],
+    },
+    reviews:{
+      launchFriendly: Number,
+      shallow: Number,
+      waves: Number,
+      accesibility: Number},
+    description: String
+  });
+  spot.save((err) => {
+    if (err) { return next(err); }
+    req.flash('success', { msg: `Spotten ${req.body.name} är upplagd ` });
     res.redirect('/');
+  });
 };
 
 exports.createTeam = (req, res) => {

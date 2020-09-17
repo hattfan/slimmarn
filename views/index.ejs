@@ -145,14 +145,15 @@
       function placeMarker(location) {
         if (marker) {
           marker.setPosition(location);
-          document.querySelector('input[name="coordinatesLat"]').value = marker.getPosition().lat();
-          document.querySelector('input[name="coordinatesLng"]').value = marker.getPosition().lng();
         } else {
           marker = new google.maps.Marker({
             position: location,
             map: addMarkerMap
           });
         }
+        document.querySelector('input[name="coordinatesLat"]').value = marker.getPosition().lat();
+        document.querySelector('input[name="coordinatesLng"]').value = marker.getPosition().lng();
+
       }
 
       function createMarkers(map, spot) {
