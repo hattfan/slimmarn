@@ -164,13 +164,15 @@
     });
     google.maps.event.addListener(marker, 'click', () => {
       setStars(spot);
+      setWinddirections();
     });
   }
 
   function setWinddirections(spot) {
     var directions = ['N', 'NE', 'NW', 'W', 'E', 'SW', 'SE', 'S'];
-
+    
   }
+
   function setStars(spot) {
     var star = '<i class="fas fa-star"></i>';
     var nonStar = '<i class="far fa-star"></i>';
@@ -220,67 +222,88 @@
 
     var controlDiv = document.createElement('div');
 
-//### Add a button on Google Maps ...
-var controlMarkerUI = document.createElement('div');
-controlMarkerUI.style.cursor = 'pointer';
-controlMarkerUI.style.backgroundColor = 'blue';
-controlMarkerUI.style.height = '28px';
-controlMarkerUI.style.width = '25px';
-controlMarkerUI.style.marginLeft = '10px';
-controlMarkerUI.style.marginTop = '10px';
-controlMarkerUI.title = 'Click to set the map to Home';
-controlDiv.appendChild(controlMarkerUI);
+  //### Add a button on Google Maps ...
+    var controlNewSpotUI = document.createElement('div');
+    controlNewSpotUI.style.cursor = 'pointer';
+    controlNewSpotUI.style.backgroundColor = '#fff';
+    controlNewSpotUI.style.height = '28px';
+    controlNewSpotUI.style.width = '90px';
+    controlNewSpotUI.style.margin = '5px';
+    controlNewSpotUI.style.border = '1px solid black';
+    controlNewSpotUI.style.borderRadius = '5px';
+    controlNewSpotUI.title = 'Click to set the map to Home';
+    controlDiv.appendChild(controlNewSpotUI);
 
 
-//### Add a button on Google Maps ...
-var controlTrashUI = document.createElement('div');
-controlTrashUI.style.cursor = 'pointer';
-controlTrashUI.style.backgroundColor = 'black';
-controlTrashUI.style.height = '28px';
-controlTrashUI.style.width = '25px';
-controlTrashUI.style.marginLeft = '10px';
-controlTrashUI.innerHTML = '<i class="fas fa-crosshairs"></i> Översikt';
+  //### Add a button on Google Maps ...
+    var controlOverviewUI = document.createElement('div');
+    controlOverviewUI.style.cursor = 'pointer';
+    controlOverviewUI.style.backgroundColor = '#fff';
+    controlOverviewUI.style.height = '28px';
+    controlOverviewUI.style.width = '90px';
+    controlOverviewUI.style.margin = '5px';
+    controlOverviewUI.style.border = '1px solid black';
+    controlOverviewUI.style.borderRadius = '5px';
+    controlOverviewUI.title = 'Click to set the map to Home';
+    // controlOverviewUI.style.direction = ltr;
+      // controlOverviewUI.style.overflow = hidden;
+      // controlOverviewUI.style.textAlign = center;
+      // controlOverviewUI.style.height = 40px;
+      // controlOverviewUI.style.display = table-cell;
+      // controlOverviewUI.style.verticalAlign = middle;
+      // controlOverviewUI.style.position = relative;
+      // controlOverviewUI.style.color = rgb(0, 0, 0);
+      // controlOverviewUI.style.fontFamily = Roboto, Arial, sans-serif;
+      // controlOverviewUI.style.userSelect = none;
+      // controlOverviewUI.style.fontSize = 18px;
+      // controlOverviewUI.style.background-color = rgb(255, 255, 255);
+      // controlOverviewUI.style.padding = 0px 17px;
+      // controlOverviewUI.style.borderBottom-left-radius = 2px;
+      // controlOverviewUI.style.border-top-left-radius = 2px;
+      // controlOverviewUI.style.background-clip = padding-box;
+      // controlOverviewUI.style.box-shadow = rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+      // controlOverviewUI.style.min-width = 44px;
+      // controlOverviewUI.style.font-weight = 500;
 
-controlTrashUI.title = 'Click to set the map to Home';
-controlMarkerUI.appendChild(controlTrashUI);
 
-map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(controlDiv);
 
-    // Setup the click event listeners: simply set the map to Chicago.
-    controlUI.addEventListener("click", () => {
+    // Set CSS for the control interior.
+    const controlText = document.createElement("div");
+    controlText.style.color = "rgb(25,25,25)";
+    controlText.style.fontFamily = "Roboto,Arial,sans-serif";
+    controlText.style.fontSize = "16px";
+    controlText.style.lineHeight = "5px";
+    controlText.style.padding = "5px";
+    controlText.style.paddingRight = "5px";
+    controlText.innerHTML = '<i class="fas fa-thumbtack"></i> Ny spot';
+    controlNewSpotUI.appendChild(controlText);
+
+    const control2Text = document.createElement("div");
+    control2Text.style.color = "rgb(25,25,25)";
+    control2Text.style.fontFamily = "Roboto,Arial,sans-serif";
+    control2Text.style.fontSize = "16px";
+    control2Text.style.lineHeight = "5px";
+    control2Text.style.padding = "5px";
+    control2Text.style.paddingRight = "5px";
+    control2Text.innerHTML = '<i class="fas fa-crosshairs"></i> Översikt';
+    controlOverviewUI.appendChild(control2Text);
+
+    controlOverviewUI.title = 'Click to set the map to Home';
+    controlDiv.appendChild(controlOverviewUI);
+
+    controlOverviewUI.addEventListener("click", () => {
       map.setCenter(sweden);
       map.setZoom(6);
-      // $('#createSpot').show();
+    });  
+    
+    controlNewSpotUI.addEventListener("click", () => {
+      $('#createSpot').modal('show');
     });
+
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(controlDiv);
+
   };
 
-  // function CenterControl(controlDiv, map) {
-  //   // Set CSS for the control border.
-  //   const controlUI = document.createElement("div");
-  //   controlUI.style.backgroundColor = "#fff";
-  //   controlUI.style.border = "2px solid #fff";
-  //   controlUI.style.borderRadius = "3px";
-  //   controlUI.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
-  //   controlUI.style.cursor = "pointer";
-  //   controlUI.style.marginBottom = "22px";
-  //   controlUI.style.textAlign = "center";
-  //   controlUI.title = "Click to recenter the map";
-  //   controlDiv.appendChild(controlUI);
-  //   // Set CSS for the control interior.
-  //   const controlText = document.createElement("div");
-  //   controlText.style.color = "rgb(25,25,25)";
-  //   controlText.style.fontFamily = "Roboto,Arial,sans-serif";
-  //   controlText.style.fontSize = "16px";
-  //   controlText.style.lineHeight = "38px";
-  //   controlText.style.paddingLeft = "5px";
-  //   controlText.style.paddingRight = "5px";
-  //   controlText.innerHTML = '<i class="fas fa-crosshairs"></i> Översikt';
-  //   controlUI.appendChild(controlText);
-  //   // Setup the click event listeners: simply set the map to Chicago.
-  //   controlUI.addEventListener("click", () => {
-  //     $('#createSpot').modal('show');
-  //   });
-  // }
 </script>
 
 <script defer

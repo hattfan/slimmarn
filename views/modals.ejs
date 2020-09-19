@@ -145,30 +145,30 @@
                             <small class="text-danger"><i class="fas fa-exclamation-triangle"></i> Klicka på pilen för att ändra hur bra riktningen är på spoten</small>
                             <div class="arrow-container" style="text-align: center;font-size: 2rem; margin-top: 5px; padding: 1rem; border: 1px solid rgba(0,0,0,.1); border-radius: 5px;">
                                 <div class="n-arrow">
-                                    <i data-value="0" id="n-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-down"></i>
-                                    <input type="hidden" value="0" name="n-arrow">
+                                    <i data-value="0" id="N-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-down"></i>
+                                    <input type="hidden" value="0" name="N-arrow">
                                 </div>
                                 <div class="nw-ne-arrow">
-                                    <i data-value="0" id="ne-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-right" style="transform: rotate(45deg);margin-right: 80px;"></i>
-                                    <input type="hidden" value="0" name="ne-arrow">
-                                    <i data-value="0" id="nw-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-left" style="transform: rotate(-45deg);"></i>
-                                    <input type="hidden" value="0" name="nw-arrow">
+                                    <i data-value="0" id="NE-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-right" style="transform: rotate(45deg);margin-right: 80px;"></i>
+                                    <input type="hidden" value="0" name="NE-arrow">
+                                    <i data-value="0" id="NW-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-left" style="transform: rotate(-45deg);"></i>
+                                    <input type="hidden" value="0" name="NW-arrow">
                                 </div>
                                 <div class="w-e-arrow">
-                                    <i data-value="0" id="w-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-right" style="margin-right: 160px;"></i>
-                                    <input type="hidden" value="0" name="w-arrow">
-                                    <i data-value="0" id="e-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-left"></i>
-                                    <input type="hidden" value="0" name="e-arrow">
+                                    <i data-value="0" id="W-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-right" style="margin-right: 160px;"></i>
+                                    <input type="hidden" value="0" name="W-arrow">
+                                    <i data-value="0" id="E-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-left"></i>
+                                    <input type="hidden" value="0" name="E-arrow">
                                 </div>
                                 <div class="sw-se-arrow">
-                                    <i data-value="0" id="sw-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-right" style="transform: rotate(-45deg);margin-right: 80px;"></i>
-                                    <input type="hidden" value="0" name="sw-arrow">
-                                    <i data-value="0" id="se-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-left" style="transform: rotate(45deg);"></i>
-                                    <input type="hidden" value="0" name="se-arrow">
+                                    <i data-value="0" id="SW-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-right" style="transform: rotate(-45deg);margin-right: 80px;"></i>
+                                    <input type="hidden" value="0" name="SW-arrow">
+                                    <i data-value="0" id="SE-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-left" style="transform: rotate(45deg);"></i>
+                                    <input type="hidden" value="0" name="SE-arrow">
                                 </div>
-                                <div class="n-arrow">
-                                    <i data-value="0" id="s-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-up"></i>
-                                    <input type="hidden" value="0" name="s-arrow">
+                                <div class="s-arrow">
+                                    <i data-value="0" id="S-arrow" onclick="arrowClick(this)" class="arrow red fas fa-arrow-alt-circle-up"></i>
+                                    <input type="hidden" value="0" name="S-arrow">
                                 </div>
                             </div>
                         </div>
@@ -220,7 +220,6 @@
             e.setAttribute("data-value", 0);
             input.value = 0;
         }
-        debugger
         switch (parseInt(input.value)) {
             case 0:
                 e.classList.remove("green");

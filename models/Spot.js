@@ -6,12 +6,12 @@ const spotSchema = new mongoose.Schema({
   lat: String,
   windDirections: {
     N:String,
-    NO:String,
-    NV:String,
-    O:String,
-    V:String,
-    SO:String,
-    SV:String,
+    NE:String,
+    NW:String,
+    E:String,
+    W:String,
+    SE:String,
+    SW:String,
     S:String
   },
   reviews:{
