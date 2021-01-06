@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <%- include('partial/header') %>
+        <%- include('partial/sidebar') %>
+
+                <div class="app-main__outer">
+                    <div class="app-main__inner">
+                        <div class="app-page-title">
+                            <div class="page-title-wrapper">
+                                <div class="page-title-heading">
+                                    <div class="page-title-icon">
+                                        <i class="pe-7s-diamond icon-gradient bg-mean-fruit"></i>
+                                    </div>
+                                    <div>Övningar
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-">
+                                <div class="tab-content">
+                                    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                                        <div class="main-card mb-3 card">
+                                            <div class="card-body">
+                                                <form class="">
+                                                    <table class="mb-0 table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Övning</th>
+                                                            <th>Grupp</th>
+                                                            <th>Redskap</th>
+                                                            <th>Video</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% exercises.forEach(exercise => { %>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="custom-control custom-checkbox">
+                                                                            <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
+                                                                            <label class="custom-control-label" for="customCheck1"><%= exercise['Name'] %></label>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td><%= exercise['Group'] %></td>
+                                                                    <td><%= exercise['Tool'] %></td>
+                                                                    <td><a target="_blank" href="<%= exercise['Ref'] %>">Länk</a></td>
+                                                                </tr>
+                                                            <% }) %>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <%- include('partial/footer') %>
+</html>

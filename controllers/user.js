@@ -15,6 +15,7 @@ const randomBytesAsync = promisify(crypto.randomBytes);
  */
 exports.getLogin = (req, res) => {
   if (req.user) {
+    console.log(req.user)
     return res.redirect('/');
   }
   res.render('login', {
