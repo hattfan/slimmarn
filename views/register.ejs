@@ -10,9 +10,9 @@
                             <div class="page-title-wrapper">
                                 <div class="page-title-heading">
                                     <div class="page-title-icon">
-                                        <i class="pe-7s-display2 icon-gradient bg-mean-fruit"></i>
+                                        <i class="metismenu-icon pe-7s-pen icon-gradient bg-mean-fruit"></i>
                                     </div>
-                                    <div>Register
+                                    <div>Registera
                                     </div>
                                 </div>
                             </div>
@@ -45,16 +45,17 @@
                                                         </tbody>
                                                     </table>
                                                     <hr>
-                                                    <div class="position-relative form-group"><label for="workoutRounds" class="">Antal omgångar</label><input name="workoutRounds" id="workoutRounds" placeholder="Ange antal omgångar" type="number" class="form-control" required></div>
+                                                    <div class="position-relative form-group"><label for="workoutRounds" class="">Antal omgångar</label><input name="workoutRounds" id="workoutRounds" placeholder="Ange antal omgångar" type="number" class="form-control"  min="1" max="5" required></div>
                                                     <input type="hidden" name='_csrf' , value="<%= _csrf %>">
                                                     <input type="hidden" name="dailyRoutineId" value="<%= dailyRoutine._id %>">
                                                     <input type="hidden" name="userId" value="<%= user._id %>">
-                                                    <button class="mt-2 btn btn-success">Registera passet</button>
+                                                    <button type="submit" id='saveBtn' style="display: none;" class="btn btn-success"><i class="fas fa-save"></i> Registera passet</button>
+
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
+                                    <!-- <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                                         <div class="main-card mb-3 card">
                                             <div class="card-body"><h5 class="card-title">Grid</h5>
                                                 <form class="">
@@ -100,11 +101,19 @@
                                                 </form>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <script>
+                    var saveButton = document.querySelector('#saveBtn');
+                    document.querySelector('#workoutRounds').addEventListener('keyup', function() {
+                        if(this.value > 0){
+                            saveButton.style.display = '';
+                        }
+                    });
+                </script>
             <%- include('partial/footer') %>
 </html>

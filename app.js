@@ -18,6 +18,8 @@ const passport = require('passport');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
+const schedule = require('node-schedule');
+
 
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
@@ -126,19 +128,18 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
  * Schedule the job of randomizing workout.
  */
 
-var schedule = require('node-schedule');
 var scheduler = require('./schedule/schedule');
 
-// var j = schedule.scheduleJob('29 * * * *', function(){
-//   scheduler.mail();
-//   console.log('Schedule emailed!');
-// });
-// scheduler.dailyRoutine();
-// scheduler.mail();
+// TODO Lös CRON-tid
+var m = schedule.scheduleJob('0 12 * * *', function(){
+  scheduler.mail();
+  console.log('Schedule emailed!');
+});
 
-// var j = schedule.scheduleJob('01 * * * *', function(){
-//   scheduler.dailyRoutine();
-// });
+var s = schedule.scheduleJob('0 8 * * *', function(){
+  scheduler.dailyRoutine();
+  console.log('Ny övning slumpad!');
+});
 
 /**
  * Primary app routes.
