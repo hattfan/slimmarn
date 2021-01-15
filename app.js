@@ -145,9 +145,10 @@ var scheduler = require('./schedule/schedule');
  */
 app.get('/', passportConfig.isAuthenticated, homeController.index);
 app.get('/register', passportConfig.isAuthenticated, homeController.register);
+app.post('/postworkout', passportConfig.isAuthenticated, homeController.postWorkout);
 app.get('/exercises', passportConfig.isAuthenticated, homeController.exercises);
 app.get('/settings', passportConfig.isAuthenticated, homeController.settings);
-app.post('/postworkout', passportConfig.isAuthenticated, homeController.postWorkout);
+app.post('/postSettings', passportConfig.isAuthenticated, homeController.postSettings);
 // app.post('/sendChallengeEmail', passportConfig.isAuthenticated, homeController.sendChallengeEmail);
 
 app.get('/login', userController.getLogin);

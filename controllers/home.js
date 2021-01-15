@@ -2,6 +2,7 @@ var nodemailer = require('nodemailer');
 var DailyRoutine = require('../models/DailyRoutine');
 var WorkoutRegister = require('../models/WorkoutRegister');
 var Exercise = require('../models/Exercise');
+var WorkoutScheduele = require('../models/WorkoutScheduele');
 var WorkoutRegister = require('../models/WorkoutRegister');
 var User = require('../models/User');
 
@@ -12,19 +13,20 @@ exports.index = (req, res) => {
       if (err) { return next(err); }
       var timeTrained = 0
       workouts.filter(workout => workout.userId.str === req.user._id.str).forEach(workout => {
-        timeTrained = timeTrained + workout.workoutRounds * 5})
+        timeTrained = timeTrained + workout.workoutRounds * 5
+      })
       res.render('index', {
         title: 'Home',
         workouts: workouts,
         users: users,
-        timeTrained: timeTrained 
+        timeTrained: timeTrained
       });
     });
   });
 };
 
 exports.register = (req, res) => {
-  DailyRoutine.findOne({},{}, { sort: {'dailyRoutine':-1} }, (err, dailyRoutine) => {
+  DailyRoutine.findOne({}, {}, { sort: { 'dailyRoutine': -1 } }, (err, dailyRoutine) => {
     if (err) { return next(err); }
     res.render('register', {
       title: 'Register Workout',
@@ -41,9 +43,24 @@ exports.postWorkout = (req, res) => {
   });
 
   workoutRegister.save((err) => {
-    if (err) { throw(err); }
+    if (err) { throw (err); }
     req.flash('success', { msg: `Dagens workout är registrerad` });
     res.redirect('/');
+  });
+}
+
+exports.postSettings = (req, res) => {
+  WorkoutScheduele
+  const workoutRegister = new WorkoutRegister({
+    userId: req.body.userId,
+    dailyRoutineId: req.body.dailyRoutineId,
+    workoutRounds: req.body.workoutRounds
+  });
+
+  workoutRegister.save((err) => {
+    if (err) { throw (err); }
+    req.flash('success', { msg: `Uppdaterat inställningarna` });
+    res.redirect('settings');
   });
 }
 
@@ -58,7 +75,33 @@ exports.exercises = (req, res) => {
 };
 
 exports.settings = (req, res) => {
+  WorkoutScheduele.find({ userId: req.user._id }).exec((err, workoutScheduele) => {
+    if (err) { return next(err); }
     res.render('settings', {
-      title: 'Exercises',
+      title: 'Settings',
+      workoutScheduele: workoutScheduele
+    });
+  });
+};
+
+exports.postSettings = (req, res) => {
+  console.log(req.monday);
+  
+  WorkoutScheduele.findOneAndUpdate({ userId: req.user._id }, {
+    $set: {
+      days: {
+        monday: req.monday === 'on' ? true : false,
+        tuesday: req.tuesday === 'on' ? true : false,
+        wednesday: req.wednesday === 'on' ? true : false,
+        thursday: req.thursday === 'on' ? true : false,
+        friday: req.friday === 'on' ? true : false,
+        saturday: req.saturday === 'on' ? true : false,
+        sunday: req.sunday === 'on' ? true : false,
+      }
+
+    }
+  }).exec((err, workoutScheduele) => {
+    if (err) { return next(err); }
+    res.redirect('/settings')
   });
 };

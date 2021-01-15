@@ -4,118 +4,118 @@
 <head>
     <%- include('partial/header') %>
     <link rel="stylesheet" href="css/additions.css">
-        <%- include('partial/sidebar') %>
-            <style> 
-                .funkyradio div {
-                  clear: both;
-                  overflow: hidden;
-                }
-                
-                .funkyradio label {
-                  width: 100%;
-                  border-radius: 3px;
-                  border: 1px solid #D1D3D4;
-                  font-weight: normal;
-                }
-                
-                .funkyradio input[type="radio"]:empty,
-                .funkyradio input[type="checkbox"]:empty {
-                  display: none;
-                }
-                
-                .funkyradio input[type="radio"]:empty ~ label,
-                .funkyradio input[type="checkbox"]:empty ~ label {
-                  position: relative;
-                  line-height: 2.5em;
-                  text-indent: 3.25em;
-                  cursor: pointer;
-                  -webkit-user-select: none;
-                     -moz-user-select: none;
-                      -ms-user-select: none;
-                          user-select: none;
-                }
-                
-                .funkyradio input[type="radio"]:empty ~ label:before,
-                .funkyradio input[type="checkbox"]:empty ~ label:before {
-                  position: absolute;
-                  display: block;
-                  top: 0;
-                  bottom: 0;
-                  left: 0;
-                  content: '';
-                  width: 2.5em;
-                  background: #D1D3D4;
-                  border-radius: 3px 0 0 3px;
-                }
-                
-                .funkyradio input[type="radio"]:hover:not(:checked) ~ label,
-                .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
-                  color: #888;
-                }
-                
-                .funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
-                .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
-                  content: '\2714';
-                  text-indent: .9em;
-                  color: #C2C2C2;
-                }
-                
-                .funkyradio input[type="radio"]:checked ~ label,
-                .funkyradio input[type="checkbox"]:checked ~ label {
-                  color: #777;
-                }
-                
-                .funkyradio input[type="radio"]:checked ~ label:before,
-                .funkyradio input[type="checkbox"]:checked ~ label:before {
-                  content: '\2714';
-                  text-indent: .9em;
-                  color: #333;
-                  background-color: #ccc;
-                }
-                
-                .funkyradio input[type="radio"]:focus ~ label:before,
-                .funkyradio input[type="checkbox"]:focus ~ label:before {
-                  box-shadow: 0 0 0 3px #999;
-                }
-                
-                .funkyradio-default input[type="radio"]:checked ~ label:before,
-                .funkyradio-default input[type="checkbox"]:checked ~ label:before {
-                  color: #333;
-                  background-color: #ccc;
-                }
-                
-                .funkyradio-primary input[type="radio"]:checked ~ label:before,
-                .funkyradio-primary input[type="checkbox"]:checked ~ label:before {
-                  color: #fff;
-                  background-color: #337ab7;
-                }
-                
-                .funkyradio-success input[type="radio"]:checked ~ label:before,
-                .funkyradio-success input[type="checkbox"]:checked ~ label:before {
-                  color: #fff;
-                  background-color: #5cb85c;
-                }
-                
-                .funkyradio-danger input[type="radio"]:checked ~ label:before,
-                .funkyradio-danger input[type="checkbox"]:checked ~ label:before {
-                  color: #fff;
-                  background-color: #d9534f;
-                }
-                
-                .funkyradio-warning input[type="radio"]:checked ~ label:before,
-                .funkyradio-warning input[type="checkbox"]:checked ~ label:before {
-                  color: #fff;
-                  background-color: #f0ad4e;
-                }
-                
-                .funkyradio-info input[type="radio"]:checked ~ label:before,
-                .funkyradio-info input[type="checkbox"]:checked ~ label:before {
-                  color: #fff;
-                  background-color: #5bc0de;
-                }
-                
-                /* SCSS STYLES */
-                /*
+    <%- include('partial/sidebar') %>
+    <style>
+        .funkyradio div {
+            clear: both;
+            overflow: hidden;
+        }
+
+        .funkyradio label {
+            width: 100%;
+            border-radius: 3px;
+            border: 1px solid #D1D3D4;
+            font-weight: normal;
+        }
+
+        .funkyradio input[type="radio"]:empty,
+        .funkyradio input[type="checkbox"]:empty {
+            display: none;
+        }
+
+        .funkyradio input[type="radio"]:empty~label,
+        .funkyradio input[type="checkbox"]:empty~label {
+            position: relative;
+            line-height: 2.5em;
+            text-indent: 3.25em;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .funkyradio input[type="radio"]:empty~label:before,
+        .funkyradio input[type="checkbox"]:empty~label:before {
+            position: absolute;
+            display: block;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            content: '';
+            width: 2.5em;
+            background: #D1D3D4;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .funkyradio input[type="radio"]:hover:not(:checked)~label,
+        .funkyradio input[type="checkbox"]:hover:not(:checked)~label {
+            color: #888;
+        }
+
+        .funkyradio input[type="radio"]:hover:not(:checked)~label:before,
+        .funkyradio input[type="checkbox"]:hover:not(:checked)~label:before {
+            content: '\2714';
+            text-indent: .9em;
+            color: #C2C2C2;
+        }
+
+        .funkyradio input[type="radio"]:checked~label,
+        .funkyradio input[type="checkbox"]:checked~label {
+            color: #777;
+        }
+
+        .funkyradio input[type="radio"]:checked~label:before,
+        .funkyradio input[type="checkbox"]:checked~label:before {
+            content: '\2714';
+            text-indent: .9em;
+            color: #333;
+            background-color: #ccc;
+        }
+
+        .funkyradio input[type="radio"]:focus~label:before,
+        .funkyradio input[type="checkbox"]:focus~label:before {
+            box-shadow: 0 0 0 3px #999;
+        }
+
+        .funkyradio-default input[type="radio"]:checked~label:before,
+        .funkyradio-default input[type="checkbox"]:checked~label:before {
+            color: #333;
+            background-color: #ccc;
+        }
+
+        .funkyradio-primary input[type="radio"]:checked~label:before,
+        .funkyradio-primary input[type="checkbox"]:checked~label:before {
+            color: #fff;
+            background-color: #337ab7;
+        }
+
+        .funkyradio-success input[type="radio"]:checked~label:before,
+        .funkyradio-success input[type="checkbox"]:checked~label:before {
+            color: #fff;
+            background-color: #5cb85c;
+        }
+
+        .funkyradio-danger input[type="radio"]:checked~label:before,
+        .funkyradio-danger input[type="checkbox"]:checked~label:before {
+            color: #fff;
+            background-color: #d9534f;
+        }
+
+        .funkyradio-warning input[type="radio"]:checked~label:before,
+        .funkyradio-warning input[type="checkbox"]:checked~label:before {
+            color: #fff;
+            background-color: #f0ad4e;
+        }
+
+        .funkyradio-info input[type="radio"]:checked~label:before,
+        .funkyradio-info input[type="checkbox"]:checked~label:before {
+            color: #fff;
+            background-color: #5bc0de;
+        }
+
+        /* SCSS STYLES */
+        /*
                 .funkyradio {
                 
                     div {
@@ -245,104 +245,88 @@
                     }
                 }
                 */
-                </style>
-            <div class="app-main__outer">
-                <div class="app-main__inner">
-                    <div class="app-page-title">
-                        <div class="page-title-wrapper">
-                            <div class="page-title-heading">
-                                <div class="page-title-icon">
-                                    <i class="pe-7s-display2 icon-gradient bg-mean-fruit"></i>
-                                </div>
-                                <div>Inställningar
-                                </div>
-                            </div>
+    </style>
+    <div class="app-main__outer">
+        <div class="app-main__inner">
+            <div class="app-page-title">
+                <div class="page-title-wrapper">
+                    <div class="page-title-heading">
+                        <div class="page-title-icon">
+                            <i class="pe-7s-display2 icon-gradient bg-mean-fruit"></i>
+                        </div>
+                        <div>Inställningar
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 col-lg-6">
-                            <div class="mb-3 card">
-                                <div class="card-header-tab card-header-tab-animation card-header">
-                                    <div class="card-header-title">
-                                        <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                                        Träningsdagar
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade show active" id="tabs-eg-77">
-                                            <div class="col-md-12">
-                                                <div class="col-md-12">
-                                                    <div class="funkyradio">
-                                                        <div class="funkyradio-success">
-                                                            <input type="checkbox" name="checkbox" id="checkbox1"
-                                                                checked />
-                                                            <label for="checkbox1">Måndag</label>
-                                                        </div>
-                                                        <div class="funkyradio-success">
-                                                            <input type="checkbox" name="checkbox" id="checkbox2"
-                                                                checked />
-                                                            <label for="checkbox2">Tisdag</label>
-                                                        </div>
-                                                        <div class="funkyradio-success">
-                                                            <input type="checkbox" name="checkbox" id="checkbox3"
-                                                                checked />
-                                                            <label for="checkbox3">Onsdag</label>
-                                                        </div>
-                                                        <div class="funkyradio-success">
-                                                            <input type="checkbox" name="checkbox" id="checkbox4"
-                                                                checked />
-                                                            <label for="checkbox4">Torsdag</label>
-                                                        </div>
-                                                        <div class="funkyradio-success">
-                                                            <input type="checkbox" name="checkbox" id="checkbox5"
-                                                                checked />
-                                                            <label for="checkbox5">Fredag</label>
-                                                        </div>
-                                                        <div class="funkyradio-success">
-                                                            <input type="checkbox" name="checkbox" id="checkbox6"
-                                                                checked />
-                                                            <label for="checkbox6">Lördag</label>
-                                                        </div>
-                                                        <div class="funkyradio-success">
-                                                            <input type="checkbox" name="checkbox" id="checkbox7"
-                                                                checked />
-                                                            <label for="checkbox7">Söndag</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <div class="mb-3 card">
+                        <div class="card-header-tab card-header-tab-animation card-header">
+                            <div class="card-header-title">
+                                <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+                                Träningsdagar
                             </div>
                         </div>
-                        <div class="col-md-12 col-lg-6">
-                            <div class="mb-3 card">
-                                <div class="card-header-tab card-header">
-                                    <div class="card-header-title">
-                                        <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure"> </i>
-                                        Dina mål
-                                    </div>
-                                    <div class="btn-actions-pane-right">
-                                        <div class="nav">
-                                            <!-- <a href="javascript:void(0);" class="border-0 btn-pill btn-wide btn-transition active btn btn-outline-alternate">Tab 1</a>
-                                                <a href="javascript:void(0);" class="ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-alternate second-tab-toggle-alt">Tab 2</a> -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-content">
-                                    <div class="tab-pane fade active show" id="tab-eg-55">
-                                        <div class="widget-chart p-3">
-                                            <div style="height: 350px">
-                                                <canvas id="line-chart"></canvas>
-                                            </div>
-                                        </div>
-                                        <div class="pt-2 card-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="tabs-eg-77">
+                                    <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <form action="postSettings" method="post">
+                                                <div class="funkyradio">
+                                                    <div class="funkyradio-success">
+                                                        <input type="checkbox" class="dayCheckbox" name="monday" id="monday"
+                                                            <% if (workoutScheduele[0].days.monday) { %> checked
+                                                            <% } %> />
+                                                        <label for="monday">Måndag</label>
+                                                    </div>
+
+                                                    <div class="funkyradio-success">
+                                                        <input type="checkbox" class="dayCheckbox" name="tuesday" id="tuesday"
+                                                            <% if (workoutScheduele[0].days.tuesday) { %> checked
+                                                            <% } %> />
+                                                        <label for="tuesday">Tisdag</label>
+                                                    </div>
+
+                                                    <div class="funkyradio-success">
+                                                        <input type="checkbox" class="dayCheckbox" name="wednesday" id="wednesday"
+                                                            <% if (workoutScheduele[0].days.wednesday) { %> checked
+                                                            <% } %> />
+                                                        <label for="wednesday">Onsdag</label>
+                                                    </div>
+                                                    
+                                                    <div class="funkyradio-success">
+                                                        <input type="checkbox" class="dayCheckbox" name="thursday" id="thursday"
+                                                            <% if (workoutScheduele[0].days.thursday) { %> checked
+                                                            <% } %> />
+                                                        <label for="thursday">Torsdag</label>
+                                                    </div>
+                                                    
+                                                    <div class="funkyradio-success">
+                                                        <input type="checkbox" class="dayCheckbox" name="friday" id="friday"
+                                                            <% if (workoutScheduele[0].days.friday) { %> checked
+                                                            <% } %> />
+                                                        <label for="friday">Fredag</label>
+                                                    </div>
+                                                    
+                                                    <div class="funkyradio-success">
+                                                        <input type="checkbox" class="dayCheckbox" name="saturday" id="saturday"
+                                                            <% if (workoutScheduele[0].days.saturday) { %> checked
+                                                            <% } %> />
+                                                        <label for="saturday">Lördag</label>
+                                                    </div>
+                                                    
+                                                    <div class="funkyradio-success">
+                                                        <input type="checkbox" class="dayCheckbox" name="sunday" id="sunday"
+                                                            <% if (workoutScheduele[0].days.sunday) { %> checked
+                                                            <% } %> />
+                                                        <label for="sunday">Sunday</label>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                                <input type="hidden" name='_csrf' , value="<%= _csrf %>">
+                                                <button type="submit" id='saveBtn' style="display: none;" class="btn btn-success"><i class="fas fa-save"></i> Spara</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -350,7 +334,52 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12 col-lg-6">
+                    <div class="mb-3 card">
+                        <div class="card-header-tab card-header">
+                            <div class="card-header-title">
+                                <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure"> </i>
+                                Dina mål
+                            </div>
+                            <div class="btn-actions-pane-right">
+                                <div class="nav">
+                                    <!-- <a href="javascript:void(0);" class="border-0 btn-pill btn-wide btn-transition active btn btn-outline-alternate">Tab 1</a>
+                                                <a href="javascript:void(0);" class="ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-alternate second-tab-toggle-alt">Tab 2</a> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="tab-eg-55">
+                                <div class="widget-chart p-3">
+                                    Här ska inställningar in om dina mål
+                                    <!-- <div style="height: 350px">
+                                        <canvas id="line-chart"></canvas>
+                                    </div> -->
+                                </div>
+
+                                <div class="pt-2 card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <%- include('partial/footer') %>
+        </div>
+    </div>
+    <script>
+        var saveButton = document.querySelector('#saveBtn');
+        document.querySelectorAll('.dayCheckbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+                saveButton.style.display = '';
+            });
+        });
+    </script>
+
+    <%- include('partial/footer') %>
 
 </html>
