@@ -85,18 +85,17 @@ exports.settings = (req, res) => {
 };
 
 exports.postSettings = (req, res) => {
-  console.log(req.monday);
   
   WorkoutScheduele.findOneAndUpdate({ userId: req.user._id }, {
     $set: {
       days: {
-        monday: req.monday === 'on' ? true : false,
-        tuesday: req.tuesday === 'on' ? true : false,
-        wednesday: req.wednesday === 'on' ? true : false,
-        thursday: req.thursday === 'on' ? true : false,
-        friday: req.friday === 'on' ? true : false,
-        saturday: req.saturday === 'on' ? true : false,
-        sunday: req.sunday === 'on' ? true : false,
+        monday: req.body.monday === 'on' ? true : false,
+        tuesday: req.body.tuesday === 'on' ? true : false,
+        wednesday: req.body.wednesday === 'on' ? true : false,
+        thursday: req.body.thursday === 'on' ? true : false,
+        friday: req.body.friday === 'on' ? true : false,
+        saturday: req.body.saturday === 'on' ? true : false,
+        sunday: req.body.sunday === 'on' ? true : false,
       }
 
     }

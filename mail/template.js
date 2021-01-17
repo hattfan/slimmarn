@@ -334,7 +334,7 @@ ul.social li{
                     ${exersices}
                     <tr>
                         <td valign="middle" style="text-align:left; padding: 1em 2.5em;">
-                            <p><a href="#" class="btn btn-primary">Registrera ditt pass</a></p>
+                            <p><a href="https://slimmarn.herokuapp.com/register" class="btn btn-primary">Registrera ditt pass</a></p>
                         </td>
                     </tr>
             </table>
