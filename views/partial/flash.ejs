@@ -6,21 +6,12 @@
         <% }) %>
     </div>
 <% } %>
-<!-- if messages.errors
-  .alert.alert-danger.fade.show
-    button.close(type='button', data-dismiss='alert')
-      i.far.fa-times-circle
-    for error in messages.errors
-      div= error.msg
-if messages.info
-  .alert.alert-info.fade.show
-    button.close(type='button', data-dismiss='alert')
-      i.far.fa-times-circle
-    for info in messages.info
-      div= info.msg
-if messages.success
-  .alert.alert-success.fade.show
-    button.close(type='button', data-dismiss='alert')
-      i.far.fa-times-circle
-    for success in messages.success
-      div= success.msg -->
+<% if (messages.errors
+) { %>
+  <div class="alert alert-danger fade show">
+      <button class="close" type="button" data-dismiss='alert'><i class="fas fa-times-circle"></i></button>
+      <% messages.errors.forEach(error => { %>
+       <div><%= error.msg %></div>
+      <% }) %>
+  </div>
+<% } %>

@@ -6,6 +6,7 @@ const _ = require('lodash');
 const validator = require('validator');
 const mailChecker = require('mailchecker');
 const User = require('../models/User');
+const WorkoutScheduele = require('../models/WorkoutScheduele');
 
 const randomBytesAsync = promisify(crypto.randomBytes);
 
@@ -18,7 +19,7 @@ exports.getLogin = (req, res) => {
     console.log(req.user)
     return res.redirect('/');
   }
-  res.render('login', {
+  res.render('account/login', {
     title: 'Login'
   });
 };
@@ -28,6 +29,8 @@ exports.getLogin = (req, res) => {
  * Sign in using email and password.
  */
 exports.postLogin = (req, res, next) => {
+  console.log('försöker logga in');
+  
   const validationErrors = [];
   if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' });
   if (validator.isEmpty(req.body.password)) validationErrors.push({ msg: 'Password cannot be blank.' });
@@ -42,10 +45,13 @@ exports.postLogin = (req, res, next) => {
     if (err) { return next(err); }
     if (!user) {
       req.flash('errors', info);
+      console.log('fel', info);
       return res.redirect('/login');
     }
     req.logIn(user, (err) => {
       if (err) { return next(err); }
+      console.log('inloggad');
+      
       req.flash('success', { msg: 'Success! You are logged in.' });
       res.redirect(req.session.returnTo || '/');
     });
@@ -86,7 +92,7 @@ exports.postSignup = (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' });
   if (!validator.isLength(req.body.password, { min: 8 })) validationErrors.push({ msg: 'Password must be at least 8 characters long' });
-  if (req.body.password !== req.body.confirmPassword) validationErrors.push({ msg: 'Passwords do not match' });
+  if (req.body.password !== req.body.repeatPassword) validationErrors.push({ msg: 'Passwords do not match' });
 
   if (validationErrors.length) {
     req.flash('errors', validationErrors);
@@ -97,7 +103,10 @@ exports.postSignup = (req, res, next) => {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    profile: {
+      name: `${req.body.firstName} ${req.body.lastName}`
+    }
   });
 
   User.findOne({ email: req.body.email }, (err, existingUser) => {
@@ -108,12 +117,27 @@ exports.postSignup = (req, res, next) => {
     }
     user.save((err) => {
       if (err) { return next(err); }
-      req.logIn(user, (err) => {
-        if (err) {
-          return next(err);
-        }
-        res.redirect('/');
-      });
+      var workoutScheduele = new WorkoutScheduele({
+        userId: user._id,
+        days: {
+            monday : true,
+            tuesday : false,
+            wednesday : true,
+            thursday : false,
+            friday : true,
+            saturday : false,
+            sunday : false
+            }
+        });
+        workoutScheduele.save((err) => {
+            if (err) { throw(err); }
+            req.logIn(user, (err) => {
+              if (err) {
+                return next(err);
+              }
+              res.redirect('/');
+            });
+        });
     });
   });
 };

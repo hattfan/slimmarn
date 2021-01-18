@@ -131,12 +131,12 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 var scheduler = require('./schedule/schedule');
 
 // TODO Lös CRON-tid
-var m = schedule.scheduleJob('0 12 * * *', function(){
+var m = schedule.scheduleJob('47 * * * *', function(){
   scheduler.mail();
   console.log('Schedule emailed!');
 });
 
-var s = schedule.scheduleJob('0 8 * * *', function(){
+var s = schedule.scheduleJob('46 * * * *', function(){
   scheduler.dailyRoutine();
   console.log('Ny övning slumpad!');
 });

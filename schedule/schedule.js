@@ -42,12 +42,8 @@ module.exports = {
     });
 
     //TODO - Snurra över alla användare
-
-
-
     DailyRoutine.findOne({}, {}, { sort: { 'dailyRoutine': -1 } }, (err, dailyRoutine) => {
       if (err) { return next(err); }
-      console.log(dailyRoutine);
       User.find({}, (err, users) => {
         users.forEach(singleUser => {
           var exersices = "";
@@ -99,11 +95,9 @@ module.exports = {
 
       const uniqueGroups = [...new Set(excersices.map(item => item.Group))];
       var groupRandom = Math.round(Math.random());
-      console.log(groupRandom);
       uniqueGroups.forEach(group => {
-        if (group == "Armar" && groupRandom === 0) {
-        }
-        else if (group == "Axlar" && groupRandom === 1) { }
+        if (group == "Armar" && groupRandom === 0) {}
+        else if (group == "Axlar" && groupRandom === 1) {}
         else {
           var excersicesPerGroup = excersices.filter(exersiceGroup => exersiceGroup.Group == group);
           dailyRoutine.exersices.push(excersicesPerGroup[Math.floor(Math.random() * Math.floor(excersicesPerGroup.length))])

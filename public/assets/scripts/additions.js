@@ -1,16 +1,17 @@
 var data = fetchStringifyedData();
-var users = JSON.parse(data.users);
-var workouts = JSON.parse(data.workouts);
-var workoutsPerUser = users.map(user => {
-    var workoutsForUser = workouts.filter(workout => workout.userId.str === user._id.str);
-    var timeTrained = 0;
-    workoutsForUser.forEach(workout => {
-        timeTrained = timeTrained + workout.workoutRounds * 5})
-    return {
-        user: user.profile.name,
-        minutesTrained: timeTrained
-    }
-});
+var workoutsPerUser = JSON.parse(data.usersWithWorkouts);
+console.log(workoutsPerUser);
+
+// var workoutsPerUser = users.map(user => {
+//     var workoutsForUser = workouts.filter(workout => workout.userId.str === user._id.str);
+//     var timeTrained = 0;
+//     workoutsForUser.forEach(workout => {
+//         timeTrained = timeTrained + workout.workoutRounds * 5})
+//     return {
+//         user: user.profile.name,
+//         minutesTrained: timeTrained
+//     }
+// });
 
 var chartData = {
     'labels': [],
@@ -18,9 +19,8 @@ var chartData = {
 };
 
 workoutsPerUser.forEach(workoutPerUser => {
-    chartData.labels.push(workoutPerUser.user);
-    chartData.data.push(workoutPerUser.minutesTrained);
-    chartData.data.push(workoutPerUser.minutesTrained);
+    chartData.labels.push(workoutPerUser.name);
+    chartData.data.push(workoutPerUser.timeTrained);
 })
 
 var ctx = document.getElementById('myChart').getContext('2d');
@@ -28,7 +28,7 @@ var myChart = new Chart(ctx, {
     type: 'bar',
     legend: {
         display: true,
-        text: 'Minuter tränade i veckan'
+        text: 'Minuter tränade'
     },
     data: {
         labels: chartData.labels,
@@ -64,7 +64,7 @@ var myChart = new Chart(ctx, {
         },
         title: {
             display: true,
-            text: 'Minuter tränade i veckan'
+            text: 'Minuter tränade'
         },
         scales: {
             yAxes: [

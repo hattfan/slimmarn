@@ -11,15 +11,21 @@ exports.index = (req, res) => {
     if (err) { return next(err); }
     User.find({}, (err, users) => {
       if (err) { return next(err); }
-      var timeTrained = 0
-      workouts.filter(workout => workout.userId.str === req.user._id.str).forEach(workout => {
-        timeTrained = timeTrained + workout.workoutRounds * 5
+      var usersWithWorkouts = [];
+      users.forEach(user => {
+        var timeTrained = 0;
+        workouts.filter(workout => workout.userId.toString() === user._id.toString()).forEach(workout => {
+          timeTrained = timeTrained + workout.workoutRounds * 5;
+        });
+        usersWithWorkouts.push({name: user.profile.name, timeTrained: timeTrained})
       })
+      // console.log(usersWithWorkouts);
+      
       res.render('index', {
         title: 'Home',
         workouts: workouts,
         users: users,
-        timeTrained: timeTrained
+        usersWithWorkouts: usersWithWorkouts
       });
     });
   });
