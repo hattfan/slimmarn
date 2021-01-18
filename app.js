@@ -130,7 +130,6 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 
 var scheduler = require('./schedule/schedule');
 
-// TODO Lös CRON-tid
 var m = schedule.scheduleJob('0 12 * * *', function(){
   scheduler.mail();
   console.log('Schedule emailed!');
