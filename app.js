@@ -131,7 +131,7 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 var scheduler = require('./schedule/schedule');
 
 // GMT är 1 timme bakom, dvs 12 i koden är eg 11
-var m = schedule.scheduleJob('55 14 * * *', function(){
+var m = schedule.scheduleJob('10 * * * *', function(){
   scheduler.mail();
 });
 

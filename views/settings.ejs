@@ -392,7 +392,7 @@
         });
 
         var goalSaveButton = document.querySelector('#goalSaveBtn');
-        document.querySelector('#goalPerWeek').addEventListener('keyup change', function() {
+        document.querySelector('#goalPerWeek').addEventListener('keyup', function() {
             if(parseInt(this.value) > 14 && parseInt(this.value) < 241){
                 goalSaveButton.style.display = '';
             } else {
