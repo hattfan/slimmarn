@@ -21,13 +21,12 @@ exports.index = (req, res) => {
         usersWithWorkouts.push({_id: user._id.toString(), name: user.profile.name, timeTrained: timeTrained})
       })
 
-      var workoutsForUser = {};
-      workouts.filter(workout => workout.userId.toString() === user._id.toString()).forEach(workout => {
-        workoutsPerUser.push({
+      var workoutsForUser = [];
+      workouts.filter(workout => workout.userId.toString() === req.user._id.toString()).forEach(workout => {
+        workoutsForUser.push({
           workoutTime: workout.workoutRounds * 5, 
           createdat:workout.createdAt})
       });
-      usersWithWorkouts.push({_id: user._id.toString(), name: user.profile.name, timeTrained: timeTrained})
     
       res.render('index', {
         title: 'Home',
