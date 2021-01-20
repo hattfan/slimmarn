@@ -130,7 +130,7 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 
 var scheduler = require('./schedule/schedule');
 
-var m = schedule.scheduleJob('26 * * * *', function(){
+var m = schedule.scheduleJob('38 * * * *', function(){
   scheduler.mail();
 });
 
