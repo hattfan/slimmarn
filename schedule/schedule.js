@@ -10,7 +10,9 @@ module.exports = {
   mail: function () {
     //Maila
     var transporter = nodemailer.createTransport({
+      
       service: 'gmail',
+      host: 'smtp.gmail.com',
       auth: {
         user: 'din.slimbuddy@gmail.com',
         pass: 'Neroxrox5('

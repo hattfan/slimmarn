@@ -74,7 +74,6 @@ exports.settings = (req, res) => {
   WorkoutScheduele.find({ userId: req.user._id }).exec((err, workoutScheduele) => {
     if (err) { return next(err); }
     UserGoal.find({ userId: req.user._id }).exec((err, userGoal) => {
-      console.log(userGoal);
       
       if (err) { return next(err); }
       res.render('settings', {
