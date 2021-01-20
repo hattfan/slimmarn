@@ -30,7 +30,7 @@ exports.getLogin = (req, res) => {
  */
 exports.postLogin = (req, res, next) => {
   console.log('försöker logga in');
-  
+
   const validationErrors = [];
   if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' });
   if (validator.isEmpty(req.body.password)) validationErrors.push({ msg: 'Password cannot be blank.' });
@@ -51,7 +51,7 @@ exports.postLogin = (req, res, next) => {
     req.logIn(user, (err) => {
       if (err) { return next(err); }
       console.log('inloggad');
-      
+
       req.flash('success', { msg: 'Success! You are logged in.' });
       res.redirect(req.session.returnTo || '/');
     });
@@ -120,24 +120,31 @@ exports.postSignup = (req, res, next) => {
       var workoutScheduele = new WorkoutScheduele({
         userId: user._id,
         days: {
-            monday : true,
-            tuesday : false,
-            wednesday : true,
-            thursday : false,
-            friday : true,
-            saturday : false,
-            sunday : false
+          monday: true,
+          tuesday: false,
+          wednesday: true,
+          thursday: false,
+          friday: true,
+          saturday: false,
+          sunday: false
+        }
+      });
+      workoutScheduele.save((err) => {
+        if (err) { throw (err); }
+        var userGoal = new UserGoal({
+          userId: user._id,
+          weeklyGoal: 45
+        });
+        userGoal.save((err) => {
+          if (err) { throw (err); }
+          req.logIn(user, (err) => {
+            if (err) {
+              return next(err);
             }
+            res.redirect('/');
+          });
         });
-        workoutScheduele.save((err) => {
-            if (err) { throw(err); }
-            req.logIn(user, (err) => {
-              if (err) {
-                return next(err);
-              }
-              res.redirect('/');
-            });
-        });
+      });
     });
   });
 };

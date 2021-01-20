@@ -130,7 +130,7 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 
 var scheduler = require('./schedule/schedule');
 
-var m = schedule.scheduleJob('38 * * * *', function(){
+var m = schedule.scheduleJob('0 13 * * *', function(){
   scheduler.mail();
 });
 
@@ -147,8 +147,9 @@ app.post('/postworkout', passportConfig.isAuthenticated, homeController.postWork
 app.get('/exercises', passportConfig.isAuthenticated, homeController.exercises);
 app.get('/settings', passportConfig.isAuthenticated, homeController.settings);
 app.post('/postSettings', passportConfig.isAuthenticated, homeController.postSettings);
-// app.post('/sendChallengeEmail', passportConfig.isAuthenticated, homeController.sendChallengeEmail);
+app.post('/postGoal', passportConfig.isAuthenticated, homeController.postGoal);
 
+// User routes
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);

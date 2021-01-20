@@ -4,6 +4,7 @@ var WorkoutRegister = require('../models/WorkoutRegister');
 var Exercise = require('../models/Exercise');
 var WorkoutScheduele = require('../models/WorkoutScheduele');
 var WorkoutRegister = require('../models/WorkoutRegister');
+var UserGoal = require('../models/UserGoal');
 var User = require('../models/User');
 
 exports.index = (req, res) => {
@@ -19,7 +20,15 @@ exports.index = (req, res) => {
         });
         usersWithWorkouts.push({_id: user._id.toString(), name: user.profile.name, timeTrained: timeTrained})
       })
-      
+
+      var workoutsForUser = {};
+      workouts.filter(workout => workout.userId.toString() === user._id.toString()).forEach(workout => {
+        workoutsPerUser.push({
+          workoutTime: workout.workoutRounds * 5, 
+          createdat:workout.createdAt})
+      });
+      usersWithWorkouts.push({_id: user._id.toString(), name: user.profile.name, timeTrained: timeTrained})
+    
       res.render('index', {
         title: 'Home',
         usersWithWorkouts: usersWithWorkouts
@@ -52,21 +61,6 @@ exports.postWorkout = (req, res) => {
   });
 }
 
-exports.postSettings = (req, res) => {
-  WorkoutScheduele
-  const workoutRegister = new WorkoutRegister({
-    userId: req.body.userId,
-    dailyRoutineId: req.body.dailyRoutineId,
-    workoutRounds: req.body.workoutRounds
-  });
-
-  workoutRegister.save((err) => {
-    if (err) { throw (err); }
-    req.flash('success', { msg: `Uppdaterat inställningarna` });
-    res.redirect('settings');
-  });
-}
-
 exports.exercises = (req, res) => {
   Exercise.find({}).sort({ 'Group': 1, 'Name': 1 }).exec((err, exercises) => {
     if (err) { return next(err); }
@@ -80,15 +74,20 @@ exports.exercises = (req, res) => {
 exports.settings = (req, res) => {
   WorkoutScheduele.find({ userId: req.user._id }).exec((err, workoutScheduele) => {
     if (err) { return next(err); }
-    res.render('settings', {
-      title: 'Settings',
-      workoutScheduele: workoutScheduele
+    UserGoal.find({ userId: req.user._id }).exec((err, userGoal) => {
+      console.log(userGoal);
+      
+      if (err) { return next(err); }
+      res.render('settings', {
+        title: 'Settings',
+        workoutScheduele: workoutScheduele,
+        userGoal: userGoal[0].weeklyGoal
+      });
     });
   });
 };
 
 exports.postSettings = (req, res) => {
-  
   WorkoutScheduele.findOneAndUpdate({ userId: req.user._id }, {
     $set: {
       days: {
@@ -100,10 +99,18 @@ exports.postSettings = (req, res) => {
         saturday: req.body.saturday === 'on' ? true : false,
         sunday: req.body.sunday === 'on' ? true : false,
       }
-
     }
-  }).exec((err, workoutScheduele) => {
+  }, (err, doc) => {
     if (err) { return next(err); }
+    req.flash('success', { msg: `Uppdaterat inställningarna` });
+    res.redirect('/settings')
+  });
+};
+
+exports.postGoal = (req, res) => {
+  UserGoal.findOneAndUpdate({ userId: req.user._id }, { $set: { weeklyGoal: parseInt(req.body.goalPerWeek) } }, (err, doc) => {
+    if (err) { return next(err); }
+    req.flash('success', { msg: `Uppdaterat inställningarna` });
     res.redirect('/settings')
   });
 };

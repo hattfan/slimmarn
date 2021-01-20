@@ -256,12 +256,11 @@
                         </div>
                         <div>
                             <i class="metismenu-icon pe-7s-pen icon-gradient bg-mean-fruit"></i> Inställningar
-                            
                         </div>
-
                     </div>
                 </div>
             </div>
+            <%- include('partial/flash') %>
             <div class="row">
                 <div class="col-md-12 col-lg-6">
                     <div class="mb-3 card">
@@ -271,12 +270,11 @@
                                 Träningsdagar
                             </div>
                         </div>
+                        
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="alert alert-info" role="alert">
-                                    EJ KLART ÄN
-                                    <hr>
-                                    På de dagar som är markerade nedan, kommer du att få ett mail vid 12 med dagens pass
+                                    På de dagar som är markerade nedan, kommer du att få ett mail klockan 12 med dagens pass
                                   </div>
                                 
                                 <div class="tab-pane fade show active" id="tabs-eg-77">
@@ -334,7 +332,7 @@
                                                     </div>
                                                 </div>
                                                 <input type="hidden" name='_csrf' , value="<%= _csrf %>">
-                                                <button type="submit" id='saveBtn' style="display: none;" class="btn btn-success"><i class="fas fa-save"></i> Spara</button>
+                                                <button type="submit" id='settingSaveBtn' style="display: none;" class="btn btn-success"><i class="fas fa-save"></i> Spara</button>
                                             </form>
                                         </div>
                                     </div>
@@ -360,18 +358,23 @@
                         <div class="tab-content">
                             <div class="tab-pane fade active show" id="tab-eg-55">
                                 <div class="widget-chart p-3">
-                                    Här ska inställningar in om dina mål
-                                    <!-- <div style="height: 350px">
-                                        <canvas id="line-chart"></canvas>
-                                    </div> -->
+                                    <div class="alert alert-info" role="alert">
+                                        Målet som du sätter upp här nedan per vecka följs sedan upp på vecko/månad/års-basis
+                                      </div>
                                 </div>
 
                                 <div class="pt-2 card-body">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
+                                            <form action="postGoal" method="post">
+                                                <label for="goalPerWeek">Målsättning minuter per vecka</label>
+                                                <input class="form-control" value="<%= userGoal %>" type="number" name="goalPerWeek" id="goalPerWeek" min="15" max="240" placeholder="Minuter per vecka"></input>
+                                                <hr>
+                                                <input type="hidden" name='_csrf' , value="<%= _csrf %>">
+                                                <button type="submit" id='goalSaveBtn' style="display: none;" class="btn btn-success"><i class="fas fa-save"></i> Spara</button>
+                                            </form>
                                         </div>
                                     </div>
-                                    
                                 </div>
                             </div>
                         </div>
@@ -381,11 +384,20 @@
         </div>
     </div>
     <script>
-        var saveButton = document.querySelector('#saveBtn');
+        var settingSaveButton = document.querySelector('#settingSaveBtn');
         document.querySelectorAll('.dayCheckbox').forEach(checkbox => {
             checkbox.addEventListener('click', function() {
-                saveButton.style.display = '';
+                settingSaveButton.style.display = '';
             });
+        });
+
+        var goalSaveButton = document.querySelector('#goalSaveBtn');
+        document.querySelector('#goalPerWeek').addEventListener('keyup change', function() {
+            if(parseInt(this.value) > 14 && parseInt(this.value) < 241){
+                goalSaveButton.style.display = '';
+            } else {
+                goalSaveButton.style.display = 'none';
+            }
         });
     </script>
 
