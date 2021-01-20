@@ -22,52 +22,44 @@ module.exports = {
     DailyRoutine.findOne({}, {}, { sort: { 'dailyRoutine': -1 } }, (err, dailyRoutine) => {
       if (err) { return next(err); }
       User.find({}, (err, users) => {
-        WorkoutScheduele.find({}, (err, schedules) => {
+        WorkoutScheduele.find({}, (err, schedueles) => {
           users.forEach(singleUser => {
-            var scheduele = schedueles.filter(scheduele => {
-              scheduele.userId.toString() === singleUser._id.toString();
-            });
-            var exersices = "";
-            var user = singleUser.profile.name;
-            dailyRoutine.exersices.forEach(exersice => {
-              exersices = exersices + `
-                <tr style="border-bottom: 1px solid rgba(0,0,0,.05);">
-                <td valign="middle" width="50%" style="text-align:left; padding: 0 2.5em;">
-                <p>${exersice['Name']}</p>
-                </td>
-                <td valign="middle" width="50%" style="text-align:left; padding: 0 2.5em;">
-                  <a href="${exersice['Ref']}">Länk</a>
-                </td>
-                </tr>`
-            });
-
-            // userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-            // days: {
-            //   monday : Boolean,
-            //   tuesday : Boolean,
-            //   wednesday : Boolean,
-            //   thursday : Boolean,
-            //   friday : Boolean,
-            //   saturday : Boolean,
-            //   sunday : Boolean
-            // },
-
-            var template = templateFunction(user, exersices);
-
-            var mailOptions = {
-              from: 'din.slimbuddy@gmail.com',
-              to: singleUser.email,
-              subject: '📅 Dagens träning',
-              html: template
-            };
-
-            transporter.sendMail(mailOptions, function (error, info) {
-              if (error) {
-                console.log(error);
-              } else {
-                console.log('Email sent: ' + info.response);
-              }
-            });
+            var scheduele = schedueles.filter(scheduele => scheduele.userId.toString() === singleUser._id.toString());
+            console.log('scheduele',scheduele);
+            console.log('scheduele[0].days',scheduele[0].days);
+            
+            if(scheduele[0].days[matchDayOfWeek()]){
+              var exersices = "";
+              var user = singleUser.profile.name;
+              dailyRoutine.exersices.forEach(exersice => {
+                exersices = exersices + `
+                  <tr style="border-bottom: 1px solid rgba(0,0,0,.05);">
+                  <td valign="middle" width="50%" style="text-align:left; padding: 0 2.5em;">
+                  <p>${exersice['Name']}</p>
+                  </td>
+                  <td valign="middle" width="50%" style="text-align:left; padding: 0 2.5em;">
+                    <a href="${exersice['Ref']}">Länk</a>
+                  </td>
+                  </tr>`
+              });
+  
+              var template = templateFunction(user, exersices);
+  
+              var mailOptions = {
+                from: 'din.slimbuddy@gmail.com',
+                to: singleUser.email,
+                subject: '📅 Dagens träning',
+                html: template
+              };
+  
+              transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log('Email sent: ' + info.response);
+                }
+              });
+            }
           });
         });
       });
@@ -100,3 +92,25 @@ module.exports = {
   }
 };
 
+function matchDayOfWeek() {
+  const date = moment();
+  const dow = date.day();
+  switch (dow) {
+    case 1:
+      return 'monday';
+    case 2:
+      return 'tuesday';
+    case 3:
+      return 'wednesday';
+    case 4:
+      return 'thursday';
+    case 5:
+      return 'friday';
+    case 6:
+      return 'saturday';
+    case 7:
+      return 'sunday';
+
+    default:
+  }
+}

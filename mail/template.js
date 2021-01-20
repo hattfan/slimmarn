@@ -306,7 +306,7 @@ ul.social li{
             <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                     <td class="logo" style="text-align: left;">
-                        <h1><a href="#">💪 Slimmarn</a></h1>
+                        <h1>💪 Slimmarn</h1>
                     </td>
                 </tr>
             </table>
