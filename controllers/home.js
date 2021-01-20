@@ -30,8 +30,7 @@ exports.index = (req, res) => {
     
       res.render('index', {
         title: 'Home',
-        usersWithWorkouts: usersWithWorkouts,
-        cronTime: new Date()
+        usersWithWorkouts: usersWithWorkouts
       });
     });
   });
