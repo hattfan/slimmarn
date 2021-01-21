@@ -10,7 +10,7 @@ var chartData = {
 workoutsPerUser.forEach(workoutPerUser => {
     
     var nameLabel = "";
-    if (deviceWidth < 750) {
+    if (deviceWidth < 1000) {
         workoutPerUser.name.split(" ").forEach(part => {
             nameLabel = nameLabel + part.substring(0, 1);
         });
