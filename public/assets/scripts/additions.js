@@ -8,7 +8,6 @@ var chartData = {
 };
 
 workoutsPerUser.forEach(workoutPerUser => {
-    
     var nameLabel = "";
     if (deviceWidth < 1000) {
         workoutPerUser.name.split(" ").forEach(part => {
@@ -24,10 +23,10 @@ workoutsPerUser.forEach(workoutPerUser => {
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
-    legend: {
-        display: true,
-        text: 'Minuter tränade'
-    },
+    // legend: {
+    //     display: false,
+    //     text: 'Minuter tränade'
+    // },
     data: {
         labels: chartData.labels,
         datasets: [
@@ -61,7 +60,7 @@ var myChart = new Chart(ctx, {
             }
         },
         title: {
-            display: true,
+            display: false,
             text: 'Minuter tränade'
         },
         scales: {

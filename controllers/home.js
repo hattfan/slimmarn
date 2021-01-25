@@ -20,6 +20,8 @@ exports.index = (req, res) => {
         });
         usersWithWorkouts.push({_id: user._id.toString(), name: user.profile.name, timeTrained: timeTrained})
       })
+      usersWithWorkouts = usersWithWorkouts.sort((a,b) => (a.timeTrained > b.timeTrained) ? -1 : ((b.timeTrained > a.timeTrained) ? 1 : 0))
+
 
       var workoutsForUser = [];
       workouts.filter(workout => workout.userId.toString() === req.user._id.toString()).forEach(workout => {
@@ -27,10 +29,15 @@ exports.index = (req, res) => {
           workoutTime: workout.workoutRounds * 5, 
           createdat:workout.createdAt})
       });
-    
-      res.render('index', {
-        title: 'Home',
-        usersWithWorkouts: usersWithWorkouts
+      UserGoal.find({ userId: req.user._id }).exec((err, userGoal) => {
+      
+        if (err) { return next(err); }
+        res.render('index', {
+          title: 'Home',
+          usersWithWorkouts: usersWithWorkouts,
+          workoutsForUser: workoutsForUser,
+          userGoal: userGoal[0].weeklyGoal
+        });
       });
     });
   });
