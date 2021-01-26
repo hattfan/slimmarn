@@ -87,13 +87,13 @@
                         <div class="card-header-tab card-header">
                             <div class="card-header-title">
                                 <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure"> </i>
-                                Dina mål - Vecka
+                                Dina mål -&nbsp;<span id="periodText">Vecka</span>
                             </div>
                             <div class="btn-actions-pane-right">
                                 <div class="nav">
-                                    <a href="javascript:void(0);" class="border-0 btn-pill btn-wide btn-transition active btn btn-outline-alternate">Vecka</a>
-                                    <a href="javascript:void(0);" class="ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-alternate second-tab-toggle-alt">Månad</a>
-                                    <a href="javascript:void(0);" class="ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-alternate second-tab-toggle-alt">År</a>
+                                    <a onclick="drawLineGraph(this, 'week')" class="graph-btn ml-1 btn-pill btn-wide border-0 btn-transition active btn btn-outline-primary second-tab-toggle-alt">Vecka</a>
+                                    <a onclick="drawLineGraph(this, 'month')" class="graph-btn ml-1 btn-pill btn-wide border-0 btn-transition btn btn-outline-primary second-tab-toggle-alt">Månad</a>
+                                    <a onclick="drawLineGraph(this, 'year')" class="graph-btn ml-1 btn-pill btn-wide border-0 btn-transition btn btn-outline-primary second-tab-toggle-alt">År</a>
                                 </div>
                             </div>
                         </div>
