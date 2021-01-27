@@ -135,10 +135,10 @@ function weeklyData(weeklyWorkouts) {
                 sum += workout.workoutTime;
             };
         })
-        if (moment(weekStart).add(i, 'days').isSame(moment().startOf('day'))) { isFinished = true };
         if (!isFinished) {
             actuals[i] = sum;
         }
+        if (moment(weekStart).add(i, 'days').isSame(moment().startOf('day'))) { isFinished = true };
     };
     return { actuals: actuals, goalData: goalData, labels: labels }
 }
@@ -160,10 +160,10 @@ function monthlyData(monthlyWorkouts) {
                 sum += workout.workoutTime;
             };
         })
-        if (moment().startOf('month').add(i, 'days').isSame(moment().startOf('day'))) { isFinished = true };
         if (!isFinished) {
             actuals[i] = sum;
         }
+        if (moment().startOf('month').add(i, 'days').isSame(moment().startOf('day'))) { isFinished = true };
     };
     return { actuals: actuals, goalData: goalData, labels: labels }
 }
@@ -187,6 +187,7 @@ function yearlyData(yearlyWorkouts) {
             };
         })
         // if (moment().startOf('month').add(i, 'days').isSame(moment().startOf('day'))) { isFinished = true };
+        if(moment().isSame(moment().startOf('year').add(i, 'days'))){ isFinished = true };
         if (!isFinished) {
             actuals[i] = sum;
         }
