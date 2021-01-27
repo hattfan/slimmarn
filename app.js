@@ -20,9 +20,6 @@ const sass = require('node-sass-middleware');
 const multer = require('multer');
 const schedule = require('node-schedule');
 
-
-const upload = multer({ dest: path.join(__dirname, 'uploads') });
-
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
@@ -131,7 +128,7 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 var scheduler = require('./schedule/schedule');
 
 // GMT är 1 timme bakom, dvs 12 i koden är eg 11
-var m = schedule.scheduleJob('0 12 * * *', function(){
+var m = schedule.scheduleJob('10 * * * *', function(){
   scheduler.mail();
 });
 

@@ -1,6 +1,7 @@
 const workoutsForUser = JSON.parse(data.workoutsForUser);
 const userWeeklyGoal = JSON.parse(data.userGoal);
 const userMonthlyGoal = ((moment().daysInMonth()-1) / 7) * userWeeklyGoal;
+const userYearlyGoal = (365 / 7) * userWeeklyGoal;
 
 //! Detta ska flyttas till egen .js
 //Filtrera ut veckans träningspass
@@ -12,13 +13,14 @@ const monthlyWorkouts = workoutsForUser.filter(workout => moment(workout.created
 const monthlyProgress = Math.round(sumObject(monthlyWorkouts) / (moment().daysInMonth() * (1/7) * userWeeklyGoal)*100);
 
 const yearlyWorkouts = workoutsForUser.filter(workout => moment(workout.createdat).format('YYYY') === moment().format('YYYY'));
+const yearlyProgress = Math.round(sumObject(monthlyWorkouts) / (365 * userWeeklyGoal)*100);
 
 //Sätt text på weekly-goal text och bar
-setGoalBars(userWeeklyGoal, weeklyProgress, weeklyWorkouts, monthlyWorkouts, yearlyWorkouts);
+setGoalBars(userWeeklyGoal, weeklyProgress, monthlyProgress, yearlyProgress);
 //draw init graph week
 drawLineGraph(null,'week');
 
-function setGoalBars(userWeeklyGoal, weeklyWorkouts, weeklyWorkouts, monthlyWorkouts, yearlyWorkouts) {
+function setGoalBars(userWeeklyGoal, weeklyProgress, monthlyProgress, yearlyWorkouts) {
     //Weekly
     const weeklyGoalBar = document.querySelector('#weeklyGoalBar');
     document.querySelector('#weeklyGoalText').textContent = weeklyProgress;
@@ -46,7 +48,7 @@ function setGoalBars(userWeeklyGoal, weeklyWorkouts, weeklyWorkouts, monthlyWork
     }
 
     //Yearly
-    const yearlyProgress = Math.round(sumObject(yearlyWorkouts) / (365 * (1/7) * userWeeklyGoal)*100);
+    // const yearlyProgress = Math.round(sumObject(yearlyWorkouts) / (365 * (1/7) * userWeeklyGoal)*100);
     const yearlyGoalBar = document.querySelector('#yearlyGoalBar');
     document.querySelector('#yearlyGoalText').textContent = yearlyProgress;
     yearlyGoalBar.setAttribute("aria-valuenow", yearlyProgress);
@@ -63,6 +65,9 @@ function setGoalBars(userWeeklyGoal, weeklyWorkouts, weeklyWorkouts, monthlyWork
 var borderColor;
 
 function drawLineGraph(target, choice) {
+    document.querySelector("#chart-container").innerHTML = "";
+    document.querySelector("#chart-container").innerHTML = "<canvas id='goal-chart'></canvas>";
+
     if(target != null) {markActive(target);}
     switch (choice) {
         case 'week':
@@ -74,7 +79,8 @@ function drawLineGraph(target, choice) {
             borderColor = userMonthlyGoal >= monthlyProgress ? 'red' : 'green'; //week
             break;
         case 'year':
-            // break;
+            var data = yearlyData(yearlyWorkouts);
+            borderColor = userYearlyGoal >= yearlyProgress ? 'red' : 'green'; //week
         default:
             break;
     }
@@ -155,6 +161,32 @@ function monthlyData(monthlyWorkouts) {
             };
         })
         if (moment().startOf('month').add(i, 'days').isSame(moment().startOf('day'))) { isFinished = true };
+        if (!isFinished) {
+            actuals[i] = sum;
+        }
+    };
+    return { actuals: actuals, goalData: goalData, labels: labels }
+}
+
+function yearlyData(yearlyWorkouts) {
+
+    var currentDate = moment();
+    var goalData = [];
+    var actuals = [];
+    var labels = [];
+
+    var sum = 0;
+    var isFinished = false;
+    for (i = 0; i <= 364; i++) {
+        labels.push(i);
+        goalData[i] =  userYearlyGoal * (i / currentDate.daysInMonth());
+        yearlyWorkouts.forEach(workout => {
+            //Om loopens datum är samma som dagen för sträningen
+            if (moment(workout.createdat).startOf('day').isSame(moment().startOf('year').add(i, 'days'))) {
+                sum += workout.workoutTime;
+            };
+        })
+        // if (moment().startOf('month').add(i, 'days').isSame(moment().startOf('day'))) { isFinished = true };
         if (!isFinished) {
             actuals[i] = sum;
         }
