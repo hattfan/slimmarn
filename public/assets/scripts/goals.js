@@ -12,8 +12,9 @@ const weeklyProgress = Math.round(sumObject(weeklyWorkouts) / userWeeklyGoal * 1
 const monthlyWorkouts = workoutsForUser.filter(workout => moment(workout.createdat).format('MM') === moment().format('MM'));
 const monthlyProgress = Math.round(sumObject(monthlyWorkouts) / (moment().daysInMonth() * (1/7) * userWeeklyGoal)*100);
 
+debugger;
 const yearlyWorkouts = workoutsForUser.filter(workout => moment(workout.createdat).format('YYYY') === moment().format('YYYY'));
-const yearlyProgress = Math.round(sumObject(monthlyWorkouts) / (365 * userWeeklyGoal)*100);
+const yearlyProgress = Math.round(sumObject(yearlyWorkouts) / (365 * (userWeeklyGoal/7))*100);
 
 //Sätt text på weekly-goal text och bar
 setGoalBars(userWeeklyGoal, weeklyProgress, monthlyProgress, yearlyProgress);
@@ -179,7 +180,7 @@ function yearlyData(yearlyWorkouts) {
     var isFinished = false;
     for (i = 0; i <= 364; i++) {
         labels.push(i);
-        goalData[i] =  userYearlyGoal * (i / currentDate.daysInMonth());
+        goalData[i] =  (userWeeklyGoal / 7) * i ;
         yearlyWorkouts.forEach(workout => {
             //Om loopens datum är samma som dagen för sträningen
             if (moment(workout.createdat).startOf('day').isSame(moment().startOf('year').add(i, 'days'))) {
