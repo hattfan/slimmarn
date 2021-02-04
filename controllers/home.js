@@ -1,11 +1,10 @@
-var nodemailer = require('nodemailer');
-var DailyRoutine = require('../models/DailyRoutine');
-var WorkoutRegister = require('../models/WorkoutRegister');
-var Exercise = require('../models/Exercise');
-var WorkoutScheduele = require('../models/WorkoutScheduele');
-var WorkoutRegister = require('../models/WorkoutRegister');
-var UserGoal = require('../models/UserGoal');
-var User = require('../models/User');
+const DailyRoutine = require('../models/DailyRoutine'),
+WorkoutRegister = require('../models/WorkoutRegister'),
+Exercise = require('../models/Exercise'),
+WorkoutScheduele = require('../models/WorkoutScheduele'),
+UserGoal = require('../models/UserGoal'),
+User = require('../models/User'),
+moment = require('moment');
 
 exports.index = (req, res) => {
   WorkoutRegister.find({}, (err, workouts) => {
@@ -46,11 +45,29 @@ exports.index = (req, res) => {
 exports.register = (req, res) => {
   DailyRoutine.findOne({}, {}, { sort: { 'dailyRoutine': -1 } }, (err, dailyRoutine) => {
     if (err) { return next(err); }
+    var date = {
+      today: moment().format('YYYY-MM-DD'),
+      firstAvailableDate: moment().add(-7,'days').format('YYYY-MM-DD')
+    }
+
     res.render('register', {
       title: 'Register Workout',
-      dailyRoutine: dailyRoutine
+      dailyRoutine: dailyRoutine,
+      date: date
     });
   });
+};
+
+exports.otherDateOfWorkout = (req, res) => {
+  DailyRoutine.findOne({createdAt: {$gte: moment(req.query.date).startOf('day').toString(), $lt: moment(req.query.date).endOf('day').toString()} }, {}, {}, (err, dailyRoutine) => {
+    if (err) { return next(err); }
+    console.log(dailyRoutine);
+    res.json(dailyRoutine);
+  });
+};
+
+exports.alive = (req, res) => {
+    res.json("stayin alive");
 };
 
 exports.postWorkout = (req, res) => {

@@ -146,6 +146,8 @@ app.get('/exercises', passportConfig.isAuthenticated, homeController.exercises);
 app.get('/settings', passportConfig.isAuthenticated, homeController.settings);
 app.post('/postSettings', passportConfig.isAuthenticated, homeController.postSettings);
 app.post('/postGoal', passportConfig.isAuthenticated, homeController.postGoal);
+app.post('/otherDateOfWorkout', passportConfig.isAuthenticated, homeController.otherDateOfWorkout);
+app.get('/alive', homeController.alive);
 
 // User routes
 app.get('/login', userController.getLogin);
