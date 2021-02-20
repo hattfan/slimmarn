@@ -61,7 +61,6 @@ exports.register = (req, res) => {
 exports.otherDateOfWorkout = (req, res) => {
   DailyRoutine.findOne({createdAt: {$gte: moment(req.query.date).startOf('day').toString(), $lt: moment(req.query.date).endOf('day').toString()} }, {}, {}, (err, dailyRoutine) => {
     if (err) { return next(err); }
-    console.log(dailyRoutine);
     res.json(dailyRoutine);
   });
 };

@@ -58,7 +58,7 @@
                                                     <hr>
                                                     <div class="position-relative form-group"><label for="workoutRounds">Antal omgångar</label><input name="workoutRounds" id="workoutRounds" placeholder="Ange antal omgångar" type="number" class="form-control"  min="1" max="5" required></div>
                                                     <input type="hidden" name='_csrf' , value="<%= _csrf %>">
-                                                    <input type="hidden" name="dailyRoutineId" value="<%= dailyRoutine._id %>">
+                                                    <input type="hidden" id="dailyRoutineId" name="dailyRoutineId" value="<%= dailyRoutine._id %>">
                                                     <input type="hidden" name="userId" value="<%= user._id %>">
                                                     <button type="submit" id='saveBtn' style="display: none;" class="btn btn-success"><i class="fas fa-save"></i> Registera passet</button>
 
@@ -95,7 +95,6 @@
                             'X-CSRF-TOKEN': document.querySelector('input[name="_csrf"]').value
                         };
 
-                        console.log(headers);
                         var url = '/otherDateOfWorkout/?date=' + dateSelected;
                         
                         fetch(url, {
@@ -105,11 +104,20 @@
                         })
                         .then(response => response.json())
                         .then(data => {
+                            document.querySelector("#dailyRoutineTable").children[1].innerHTML = insertOtherDailyRoutine(data);
                             debugger;
+                            document.querySelector("#dailyRoutineId").value = data._id;
                         });
 
                     })
 
+                    function insertOtherDailyRoutine(data) {
+                        let routineHtml = "";
+                        data.exersices.forEach(exersice => {
+                            routineHtml = `${routineHtml}<tr><td>${exersice.Name}</td><td>${exersice.Group}</td><td><a target="_blank" href="${exersice.Ref}">Länk</a></td></tr>`;
+                        });
+                        return routineHtml;
+                    }
                 </script>
             <%- include('partial/footer') %>
 </html>
