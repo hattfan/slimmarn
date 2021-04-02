@@ -144,6 +144,8 @@ app.get('/register', passportConfig.isAuthenticated, homeController.register);
 app.post('/postworkout', passportConfig.isAuthenticated, homeController.postWorkout);
 app.get('/exercises', passportConfig.isAuthenticated, homeController.exercises);
 app.get('/settings', passportConfig.isAuthenticated, homeController.settings);
+app.get('/bet', passportConfig.isAuthenticated, homeController.bet);
+app.post('/createbet', passportConfig.isAuthenticated, homeController.createBet);
 app.post('/postSettings', passportConfig.isAuthenticated, homeController.postSettings);
 app.post('/postGoal', passportConfig.isAuthenticated, homeController.postGoal);
 app.post('/otherDateOfWorkout', passportConfig.isAuthenticated, homeController.otherDateOfWorkout);

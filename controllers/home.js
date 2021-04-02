@@ -1,10 +1,11 @@
 const DailyRoutine = require('../models/DailyRoutine'),
-WorkoutRegister = require('../models/WorkoutRegister'),
-Exercise = require('../models/Exercise'),
-WorkoutScheduele = require('../models/WorkoutScheduele'),
-UserGoal = require('../models/UserGoal'),
-User = require('../models/User'),
-moment = require('moment');
+  WorkoutRegister = require('../models/WorkoutRegister'),
+  Exercise = require('../models/Exercise'),
+  WorkoutScheduele = require('../models/WorkoutScheduele'),
+  UserGoal = require('../models/UserGoal'),
+  Bet = require('../models/Bet'),
+  User = require('../models/User'),
+  moment = require('moment');
 
 exports.index = (req, res) => {
   WorkoutRegister.find({}, (err, workouts) => {
@@ -17,19 +18,20 @@ exports.index = (req, res) => {
         workouts.filter(workout => workout.userId.toString() === user._id.toString()).forEach(workout => {
           timeTrained = timeTrained + workout.workoutRounds * 5;
         });
-        usersWithWorkouts.push({_id: user._id.toString(), name: user.profile.name, timeTrained: timeTrained})
+        usersWithWorkouts.push({ _id: user._id.toString(), name: user.profile.name, timeTrained: timeTrained })
       })
-      usersWithWorkouts = usersWithWorkouts.sort((a,b) => (a.timeTrained > b.timeTrained) ? -1 : ((b.timeTrained > a.timeTrained) ? 1 : 0))
+      usersWithWorkouts = usersWithWorkouts.sort((a, b) => (a.timeTrained > b.timeTrained) ? -1 : ((b.timeTrained > a.timeTrained) ? 1 : 0))
 
 
       var workoutsForUser = [];
       workouts.filter(workout => workout.userId.toString() === req.user._id.toString()).forEach(workout => {
         workoutsForUser.push({
-          workoutTime: workout.workoutRounds * 5, 
-          createdat:workout.createdAt})
+          workoutTime: workout.workoutRounds * 5,
+          createdat: workout.createdAt
+        })
       });
       UserGoal.find({ userId: req.user._id }).exec((err, userGoal) => {
-      
+
         if (err) { return next(err); }
         res.render('index', {
           title: 'Home',
@@ -47,7 +49,7 @@ exports.register = (req, res) => {
     if (err) { return next(err); }
     var date = {
       today: moment().format('YYYY-MM-DD'),
-      firstAvailableDate: moment().add(-7,'days').format('YYYY-MM-DD')
+      firstAvailableDate: moment().add(-7, 'days').format('YYYY-MM-DD')
     }
 
     res.render('register', {
@@ -59,14 +61,14 @@ exports.register = (req, res) => {
 };
 
 exports.otherDateOfWorkout = (req, res) => {
-  DailyRoutine.findOne({createdAt: {$gte: moment(req.query.date).startOf('day').toString(), $lt: moment(req.query.date).endOf('day').toString()} }, {}, {}, (err, dailyRoutine) => {
+  DailyRoutine.findOne({ createdAt: { $gte: moment(req.query.date).startOf('day').toString(), $lt: moment(req.query.date).endOf('day').toString() } }, {}, {}, (err, dailyRoutine) => {
     if (err) { return next(err); }
     res.json(dailyRoutine);
   });
 };
 
 exports.alive = (req, res) => {
-    res.json("stayin alive");
+  res.json("stayin alive");
 };
 
 exports.postWorkout = (req, res) => {
@@ -93,11 +95,35 @@ exports.exercises = (req, res) => {
   });
 };
 
+exports.bet = (req, res) => {
+  User.find({}, (err, users) => {
+    if (err) { return next(err); }
+    res.render('bet', {
+      today: moment().format('YYYY-MM-DD'),
+      userId: req.user._id,
+      users: users
+    });
+  });
+};
+
+exports.createBet = (req, res) => {
+  const bet = new Bet({
+    betFinalization: Number,
+    betDescription: String,
+    betType: String,
+    betFinalDate: Date,
+    betStartDate: Date,
+    
+  });
+  
+  res.redirect('/bet');
+};
+
 exports.settings = (req, res) => {
   WorkoutScheduele.find({ userId: req.user._id }).exec((err, workoutScheduele) => {
     if (err) { return next(err); }
     UserGoal.find({ userId: req.user._id }).exec((err, userGoal) => {
-      
+
       if (err) { return next(err); }
       res.render('settings', {
         title: 'Settings',
