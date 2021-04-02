@@ -72,16 +72,29 @@ exports.alive = (req, res) => {
 };
 
 exports.postWorkout = (req, res) => {
-  const workoutRegister = new WorkoutRegister({
-    userId: req.body.userId,
-    dailyRoutineId: req.body.dailyRoutineId,
-    workoutRounds: req.body.workoutRounds
-  });
 
-  workoutRegister.save((err) => {
-    if (err) { throw (err); }
-    req.flash('success', { msg: `Dagens workout är registrerad` });
-    res.redirect('/');
+  WorkoutRegister.find({
+    userId:req.user._id, 
+    createdAt: {$gte: moment(req.query.date).startOf('day').toString(), $lt: moment(req.query.date).endOf('day').toString()} 
+  }, (err, workouts) => {
+    if (err) { return next(err); }
+    if(workouts.length > 0){
+      req.flash('errors', { msg: `Du har redan ett pass registrerat idag` });
+      res.redirect('/');
+    }
+    else{
+      const workoutRegister = new WorkoutRegister({
+        userId: req.body.userId,
+        dailyRoutineId: req.body.dailyRoutineId,
+        workoutRounds: req.body.workoutRounds
+      });
+      
+      workoutRegister.save((err) => {
+        if (err) { throw (err); }
+        req.flash('success', { msg: `Dagens workout är registrerad` });
+        res.redirect('/');
+      });
+    }
   });
 }
 
@@ -93,7 +106,7 @@ exports.exercises = (req, res) => {
       exercises: exercises
     });
   });
-};
+}
 
 exports.bet = (req, res) => {
   User.find({}, (err, users) => {
