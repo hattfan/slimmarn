@@ -9,13 +9,10 @@ var chartData = {
 
 workoutsPerUser.forEach(workoutPerUser => {
     var nameLabel = "";
-    if (deviceWidth < 1000) {
-        workoutPerUser.name.split(" ").forEach(part => {
-            nameLabel = nameLabel + part.substring(0, 1);
-        });
-    } else {
-        nameLabel = workoutPerUser.name;
-    }  
+    workoutPerUser.name.split(" ").forEach(part => {
+        nameLabel = nameLabel + part.substring(0, 1);
+    });
+    
     chartData.labels.push(nameLabel);
     chartData.data.push(workoutPerUser.timeTrained);
 })
