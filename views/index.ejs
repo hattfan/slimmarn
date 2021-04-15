@@ -7,19 +7,6 @@
 
     <div class="app-main__outer">
         <div class="app-main__inner">
-            <!-- <div class="app-page-title">
-                <div class="page-title-wrapper">
-                    <div class="page-title-heading">
-                        <div class="page-title-icon">
-                            <i class="pe-7s-display2 icon-gradient bg-mean-fruit"></i>
-                        </div>
-                        <div>
-                            <span class="mobile-title-icon"><i
-                                    class="pe-7s-display2 icon-gradient bg-mean-fruit"></i></span> Dashboard
-                        </div>
-                    </div>
-                </div>
-            </div> -->
             <%- include('partial/flash') %>
             <div class="row">
                 <div class="col-md-12 col-lg-6">
@@ -27,25 +14,27 @@
                         <div class="card-header-tab card-header-tab-animation card-header">
                             <div class="card-header-title">
                                 <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                                Rapport - Minuter tränade
+                                Minuter tränade -&nbsp;<span id="bar-chart-text">Månad</span>
                             </div>
-                            <!-- <ul class="nav">
-                                            <li class="nav-item"><a href="javascript:void(0);" class="active nav-link">Last</a></li>
-                                            <li class="nav-item"><a href="javascript:void(0);" class="nav-link second-tab-toggle">Current</a></li>
-                                        </ul> -->
+                            <div class="btn-actions-pane-right">
+                                <div class="nav">
+                                    <a onclick="drawBarGraph(this, 'month')" class="bar-graph-btn ml-1 btn-pill btn-wide border-0 btn-transition active btn btn-outline-primary second-tab-toggle-alt">Månad</a>
+                                    <a onclick="drawBarGraph(this, 'total')" class="bar-graph-btn ml-1 btn-pill btn-wide border-0 btn-transition btn btn-outline-primary second-tab-toggle-alt">Total</a>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="tabs-eg-77">
                                     <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
                                         <div class="widget-chat-wrapper-outer">
-                                            <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+                                            <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0" id="bar-chart-container">
                                                 <canvas id="myChart"></canvas>
                                             </div>
                                         </div>
                                     </div>
                                     <h6 class="text-muted text-uppercase font-size-md opacity-5 font-weight-normal">
-                                        Topplistan
+                                        Topplistan - All time total
                                     </h6>
                                     <div class="scroll-area-sm">
                                         <div class="scrollbar-container">
@@ -183,6 +172,7 @@
     <script>
         function fetchStringifyedData() {
             var data = {};
+            data['usersWithWorkoutsCurrentMonth'] = '<%- JSON.stringify(usersWithWorkoutsCurrentMonth) %>';
             data['usersWithWorkouts'] = '<%- JSON.stringify(usersWithWorkouts) %>';
             data['workoutsForUser'] = '<%- JSON.stringify(workoutsForUser) %>';
             data['userGoal'] = '<%- JSON.stringify(userGoal) %>';

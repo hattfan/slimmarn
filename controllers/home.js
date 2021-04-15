@@ -20,8 +20,23 @@ exports.index = (req, res) => {
         });
         usersWithWorkouts.push({ _id: user._id.toString(), name: user.profile.name, timeTrained: timeTrained })
       })
-      usersWithWorkouts = usersWithWorkouts.sort((a, b) => (a.timeTrained > b.timeTrained) ? -1 : ((b.timeTrained > a.timeTrained) ? 1 : 0))
 
+      
+      var usersWithWorkoutsCurrentMonth = [];
+      var currentMonthWorkouts = workouts.filter(workout => moment(workout.createdAt).format('MM') === moment().format('MM'))
+      users.forEach(user => {
+        var timeTrained = 0;
+        currentMonthWorkouts.filter(workout => workout.userId.toString() === user._id.toString()).forEach(workout => {
+          timeTrained = timeTrained + workout.workoutRounds * 5;
+        });
+        usersWithWorkoutsCurrentMonth.push({ _id: user._id.toString(), name: user.profile.name, timeTrained: timeTrained })
+      })
+      
+      usersWithWorkouts = usersWithWorkouts.sort((a, b) => (a.timeTrained > b.timeTrained) ? -1 : ((b.timeTrained > a.timeTrained) ? 1 : 0))
+      usersWithWorkoutsCurrentMonth = usersWithWorkoutsCurrentMonth.sort((a, b) => (a.timeTrained > b.timeTrained) ? -1 : ((b.timeTrained > a.timeTrained) ? 1 : 0))
+
+      console.log(usersWithWorkouts, usersWithWorkoutsCurrentMonth);
+      
 
       var workoutsForUser = [];
       workouts.filter(workout => workout.userId.toString() === req.user._id.toString()).forEach(workout => {
@@ -36,6 +51,7 @@ exports.index = (req, res) => {
         res.render('index', {
           title: 'Home',
           usersWithWorkouts: usersWithWorkouts,
+          usersWithWorkoutsCurrentMonth: usersWithWorkoutsCurrentMonth,
           workoutsForUser: workoutsForUser,
           userGoal: userGoal[0].weeklyGoal
         });
