@@ -6,6 +6,7 @@ const _ = require('lodash');
 const validator = require('validator');
 const mailChecker = require('mailchecker');
 const User = require('../models/User');
+const UserGoal = require('../models/UserGoal');
 const WorkoutScheduele = require('../models/WorkoutScheduele');
 
 const randomBytesAsync = promisify(crypto.randomBytes);
@@ -16,7 +17,6 @@ const randomBytesAsync = promisify(crypto.randomBytes);
  */
 exports.getLogin = (req, res) => {
   if (req.user) {
-    console.log(req.user)
     return res.redirect('/');
   }
   res.render('account/login', {
