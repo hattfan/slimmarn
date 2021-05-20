@@ -15,6 +15,7 @@ const randomBytesAsync = promisify(crypto.randomBytes);
  * GET /login
  * Login page.
  */
+// vafan?
 exports.getLogin = (req, res) => {
   if (req.user) {
     return res.redirect('/');
