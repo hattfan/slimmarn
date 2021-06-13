@@ -26,43 +26,45 @@
                                     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                                         <div class="main-card mb-3 card">
                                             <div class="card-body"><h5 class="card-title">Dagens pass</h5>
-                                                <form action="postworkout" method="post">
-                                                    <table class="mb-0 table table-striped" id="dailyRoutineTable">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Övning</th>
-                                                            <th>Grupp</th>
-                                                            <th>Video</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <% dailyRoutine.exersices.forEach(exercise => { %>
-                                                                <tr>
-                                                                    <td><%= exercise['Name'] %></td>
-                                                                    <td><%= exercise['Group'] %></td>
-                                                                    <td><a target="_blank" href="<%= exercise['Ref'] %>">Länk</a></td>
-                                                                </tr>
-                                                            <% }) %>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <br>
-                                                    <div class="checkbox-container">
-                                                        <input type="checkbox" name="chooseOtherDate" id="chooseOtherDate">
-                                                        <label for="chooseOtherDate">Välj en annan dags pass</label>
-                                                    </div>
-                                                    
-                                                    <div class="date-container" style="display: none;">
-                                                        <input type="date" value="<%= date.today %>" min="<%= date.firstAvailableDate %>" max="<%= date.today %>" id="datepickerAnotherday" class="form-control">
-                                                    </div>
-                                                    <hr>
-                                                    <div class="position-relative form-group"><label for="workoutRounds">Antal omgångar</label><input name="workoutRounds" id="workoutRounds" placeholder="Ange antal omgångar" type="number" class="form-control"  min="1" max="5" required></div>
-                                                    <input type="hidden" name='_csrf' , value="<%= _csrf %>">
-                                                    <input type="hidden" id="dailyRoutineId" name="dailyRoutineId" value="<%= dailyRoutine._id %>">
-                                                    <input type="hidden" name="userId" value="<%= user._id %>">
-                                                    <button type="submit" id='saveBtn' style="display: none;" class="btn btn-success"><i class="fas fa-save"></i> Registera passet</button>
-
-                                                </form>
+                                                <h1><%= userId %></h1>
+                                                <fieldset>
+                                                    <form action="postworkout" method="post">
+                                                        <table class="mb-0 table table-striped" id="dailyRoutineTable">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Övning</th>
+                                                                <th>Grupp</th>
+                                                                <th>Video</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <% dailyRoutine.exersices.forEach(exercise => { %>
+                                                                    <tr>
+                                                                        <td><%= exercise['Name'] %></td>
+                                                                        <td><%= exercise['Group'] %></td>
+                                                                        <td><a target="_blank" href="<%= exercise['Ref'] %>">Länk</a></td>
+                                                                    </tr>
+                                                                <% }) %>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <br>
+                                                        <div class="checkbox-container">
+                                                            <input type="checkbox" name="chooseOtherDate" id="chooseOtherDate">
+                                                            <label for="chooseOtherDate">Välj en annan dags pass</label>
+                                                        </div>
+                                                        
+                                                        <div class="date-container" style="display: none;">
+                                                            <input type="date" value="<%= date.today %>" min="<%= date.firstAvailableDate %>" max="<%= date.today %>" id="datepickerAnotherday" class="form-control">
+                                                        </div>
+                                                        <hr>
+                                                        <div class="position-relative form-group"><label for="workoutRounds">Antal omgångar</label><input name="workoutRounds" id="workoutRounds" placeholder="Ange antal omgångar" type="number" class="form-control"  min="1" max="5" required></div>
+                                                        <input type="hidden" name='_csrf' , value="<%= _csrf %>">
+                                                        <input type="hidden" id="dailyRoutineId" name="dailyRoutineId" value="<%= dailyRoutine._id %>">
+                                                        <input type="hidden" name="userId" value="<%= user._id %>">
+                                                        <button type="submit" id='saveBtn' style="display: none;" class="btn btn-success"><i class="fas fa-save"></i> Registera passet</button>
+                                                    </form>
+                                                </fieldset> 
                                             </div>
                                         </div>
                                     </div>
@@ -73,10 +75,6 @@
                 </div>
                 <script>
                     var saveButton = document.querySelector('#saveBtn');
-
-                    // saveButton.addEventListener('click', function() {
-                    //     this.disabled = true;
-                    // });
 
                     document.querySelector('#workoutRounds').addEventListener('keyup', function() {
                         if(this.value > 0){

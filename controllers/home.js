@@ -1,3 +1,4 @@
+/* eslint-disable */
 const DailyRoutine = require('../models/DailyRoutine'),
   WorkoutRegister = require('../models/WorkoutRegister'),
   Exercise = require('../models/Exercise'),
@@ -34,9 +35,6 @@ exports.index = (req, res) => {
       
       usersWithWorkouts = usersWithWorkouts.sort((a, b) => (a.timeTrained > b.timeTrained) ? -1 : ((b.timeTrained > a.timeTrained) ? 1 : 0))
       usersWithWorkoutsCurrentMonth = usersWithWorkoutsCurrentMonth.sort((a, b) => (a.timeTrained > b.timeTrained) ? -1 : ((b.timeTrained > a.timeTrained) ? 1 : 0))
-
-      console.log(usersWithWorkouts, usersWithWorkoutsCurrentMonth);
-      
 
       var workoutsForUser = [];
       workouts.filter(workout => workout.userId.toString() === req.user._id.toString()).forEach(workout => {
@@ -188,5 +186,68 @@ exports.postGoal = (req, res) => {
     if (err) { return next(err); }
     req.flash('success', { msg: `Uppdaterat inställningarna` });
     res.redirect('/settings')
+  });
+};
+
+exports.home = (req, res) => {
+  res.render('landing')
+};
+
+exports.sneakPeak = (req, res) => {
+  var user = {
+    _id:'6004a8a335f8dd3918b1ee4b',
+    profile:{
+      name:'SneakPeak'
+    }
+  };
+
+  WorkoutRegister.find({}, (err, workouts) => {
+    if (err) { return next(err); }
+    User.find({}, (err, users) => {
+      if (err) { return next(err); }
+      var usersWithWorkouts = [];
+      users.forEach(user => {
+        var timeTrained = 0;
+        workouts.filter(workout => workout.userId.toString() === user._id.toString()).forEach(workout => {
+          timeTrained = timeTrained + workout.workoutRounds * 5;
+        });
+        usersWithWorkouts.push({ _id: user._id.toString(), name: user.profile.name, timeTrained: timeTrained })
+      })
+
+      
+      var usersWithWorkoutsCurrentMonth = [];
+      var currentMonthWorkouts = workouts.filter(workout => moment(workout.createdAt).format('MM') === moment().format('MM'))
+      users.forEach(user => {
+        var timeTrained = 0;
+        currentMonthWorkouts.filter(workout => workout.userId.toString() === user._id.toString()).forEach(workout => {
+          timeTrained = timeTrained + workout.workoutRounds * 5;
+        });
+        usersWithWorkoutsCurrentMonth.push({ _id: user._id.toString(), name: user.profile.name, timeTrained: timeTrained })
+      })
+      
+      usersWithWorkouts = usersWithWorkouts.sort((a, b) => (a.timeTrained > b.timeTrained) ? -1 : ((b.timeTrained > a.timeTrained) ? 1 : 0))
+      usersWithWorkoutsCurrentMonth = usersWithWorkoutsCurrentMonth.sort((a, b) => (a.timeTrained > b.timeTrained) ? -1 : ((b.timeTrained > a.timeTrained) ? 1 : 0))
+
+      var workoutsForUser = [];
+      workouts.filter(workout => workout.userId.toString() === user._id.toString()).forEach(workout => {
+        workoutsForUser.push({
+          workoutTime: workout.workoutRounds * 5,
+          createdat: workout.createdAt
+        })
+      });
+      UserGoal.find({ userId: user._id }).exec((err, userGoal) => {
+
+        if (err) { return next(err); }
+        res.render('index', {
+          title: 'Home',
+          usersWithWorkouts: usersWithWorkouts,
+          usersWithWorkoutsCurrentMonth: usersWithWorkoutsCurrentMonth,
+          workoutsForUser: workoutsForUser,
+          userGoal: userGoal[0].weeklyGoal,
+          disabled: true,
+          user: user
+        });
+      });
+    });
   });
 };

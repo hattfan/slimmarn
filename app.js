@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable vars-on-top */
+/* eslint-disable no-var */
 /**
  * Module dependencies.
  */
@@ -17,7 +20,6 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
-const multer = require('multer');
 const schedule = require('node-schedule');
 
 /**
@@ -30,7 +32,7 @@ dotenv.config({ path: '.env.example' });
  */
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
-const apiController = require('./controllers/api');
+// const apiController = require('./controllers/api');
 
 /**
  * API keys and Passport configuration.
@@ -129,11 +131,11 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 var scheduler = require('./schedule/schedule');
 
 // GMT är 1 timme bakom, dvs 12 i koden är eg 11
-var m = schedule.scheduleJob('0 12 * * *', function(){
+var m = schedule.scheduleJob('0 12 * * *', () => {
   scheduler.mail();
 });
 
-var s = schedule.scheduleJob('0 6 * * *', function(){
+var s = schedule.scheduleJob('0 6 * * *', () => {
   scheduler.dailyRoutine();
 });
 
@@ -141,11 +143,13 @@ var s = schedule.scheduleJob('0 6 * * *', function(){
  * Primary app routes.
  */
 app.get('/', passportConfig.isAuthenticated, homeController.index);
+app.get('/sneak-peak', homeController.sneakPeak);
+app.get('/home', homeController.home);
 app.get('/register', passportConfig.isAuthenticated, homeController.register);
-app.post('/postworkout', passportConfig.isAuthenticated, homeController.postWorkout);
 app.get('/exercises', passportConfig.isAuthenticated, homeController.exercises);
 app.get('/settings', passportConfig.isAuthenticated, homeController.settings);
 app.get('/bet', passportConfig.isAuthenticated, homeController.bet);
+app.post('/postworkout', passportConfig.isAuthenticated, homeController.postWorkout);
 app.post('/createbet', passportConfig.isAuthenticated, homeController.createBet);
 app.post('/postSettings', passportConfig.isAuthenticated, homeController.postSettings);
 app.post('/postGoal', passportConfig.isAuthenticated, homeController.postGoal);

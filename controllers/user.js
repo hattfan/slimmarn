@@ -30,7 +30,6 @@ exports.getLogin = (req, res) => {
  * Sign in using email and password.
  */
 exports.postLogin = (req, res, next) => {
-  console.log('försöker logga in');
 
   const validationErrors = [];
   if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' });
@@ -51,10 +50,12 @@ exports.postLogin = (req, res, next) => {
     }
     req.logIn(user, (err) => {
       if (err) { return next(err); }
-      console.log('inloggad');
 
       req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect(req.session.returnTo || '/');
+      // console.log('req.session.returnTo', req.session.returnTo);
+      
+      res.redirect('/');
+      // res.redirect(req.session.returnTo || '/');
     });
   })(req, res, next);
 };
