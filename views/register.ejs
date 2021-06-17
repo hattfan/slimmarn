@@ -57,6 +57,13 @@
                                                             <input type="date" value="<%= date.today %>" min="<%= date.firstAvailableDate %>" max="<%= date.today %>" id="datepickerAnotherday" class="form-control">
                                                         </div>
                                                         <hr>
+                                                        <div id="info-text" class="alert alert-info" role="alert">
+                                                            <%= userHasRegisteredWorkout? "none" : "" %>
+                                                            <hr>
+                                                            Hemligheten med Slimmarn är att alltid träna 1 minut för varje övning, oavsett om du måste ta pauser så kör så mycket du kan på 1 minut
+                                                            <hr>
+                                                            En omgång är 1 set på alla övningar, dvs 5 minuter. 2 omgångar = 10 minuter, 3 omgångar = 15 minuter osv...
+                                                        </div>
                                                         <div class="position-relative form-group"><label for="workoutRounds">Antal omgångar</label><input name="workoutRounds" id="workoutRounds" placeholder="Ange antal omgångar" type="number" class="form-control"  min="1" max="5" required></div>
                                                         <input type="hidden" name='_csrf' , value="<%= _csrf %>">
                                                         <input type="hidden" id="dailyRoutineId" name="dailyRoutineId" value="<%= dailyRoutine._id %>">
@@ -120,6 +127,10 @@
                         });
                         return routineHtml;
                     }
+
+                    var userHasRegisteredWorkout = '<%- JSON.stringify(userHasRegisteredWorkout) %>';
+                    userHasRegisteredWorkout === 'true' ? document.querySelector("#info-text").style.display = "none" : null;
+
                 </script>
             <%- include('partial/footer') %>
 </html>

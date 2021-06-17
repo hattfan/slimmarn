@@ -66,10 +66,15 @@ exports.register = (req, res) => {
       firstAvailableDate: moment().add(-7, 'days').format('YYYY-MM-DD')
     }
 
-    res.render('register', {
-      title: 'Register Workout',
-      dailyRoutine: dailyRoutine,
-      date: date
+    WorkoutRegister.find({userId:req.user._id}, (err, workouts) => {
+      if (err) { return next(err); }
+      console.log('workouts.length', workouts.length)
+      res.render('register', {
+        title: 'Register Workout',
+        dailyRoutine: dailyRoutine,
+        date: date,
+        userHasRegisteredWorkout: workouts.length > 0 ? true: false,
+      });
     });
   });
 };
