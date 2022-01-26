@@ -24,7 +24,7 @@ exports.index = (req, res) => {
 
       
       var usersWithWorkoutsCurrentMonth = [];
-      var currentMonthWorkouts = workouts.filter(workout => moment(workout.createdAt).format('MM') === moment().format('MM'))
+      var currentMonthWorkouts = workouts.filter(workout => moment(workout.createdAt).format('YYYY') === moment().format('YYYY') && moment(workout.createdAt).format('MM') === moment().format('MM'))
       users.forEach(user => {
         var timeTrained = 0;
         currentMonthWorkouts.filter(workout => workout.userId.toString() === user._id.toString()).forEach(workout => {
@@ -37,7 +37,7 @@ exports.index = (req, res) => {
       usersWithWorkoutsCurrentMonth = usersWithWorkoutsCurrentMonth.sort((a, b) => (a.timeTrained > b.timeTrained) ? -1 : ((b.timeTrained > a.timeTrained) ? 1 : 0))
 
       var workoutsForUser = [];
-      workouts.filter(workout => workout.userId.toString() === req.user._id.toString()).forEach(workout => {
+      workouts.filter(workout => moment(workout.createdAt).format('YYYY') === moment().format('YYYY') && workout.userId.toString() === req.user._id.toString()).forEach(workout => {
         workoutsForUser.push({
           workoutTime: workout.workoutRounds * 5,
           createdat: workout.createdAt
@@ -234,7 +234,7 @@ exports.sneakPeak = (req, res) => {
       usersWithWorkoutsCurrentMonth = usersWithWorkoutsCurrentMonth.sort((a, b) => (a.timeTrained > b.timeTrained) ? -1 : ((b.timeTrained > a.timeTrained) ? 1 : 0))
 
       var workoutsForUser = [];
-      workouts.filter(workout => workout.userId.toString() === user._id.toString()).forEach(workout => {
+      workouts.filter(workout => moment(workout.createdat).format('YYYY') === moment().format('YYYY') && workout.userId.toString() === user._id.toString()).forEach(workout => {
         workoutsForUser.push({
           workoutTime: workout.workoutRounds * 5,
           createdat: workout.createdAt

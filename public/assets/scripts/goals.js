@@ -2,7 +2,7 @@ const userWeeklyGoal = JSON.parse(data.userGoal);
 const userMonthlyGoal = ((moment().daysInMonth()-1) / 7) * userWeeklyGoal;
 const userYearlyGoal = (365 / 7) * userWeeklyGoal;
 
-const weeklyWorkouts = workoutsForUser.filter(workout => moment(workout.createdat).isoWeek() === moment().isoWeek());
+const weeklyWorkouts = workoutsForUser.filter(workout => moment(workout.createdat).format('YYYY') === moment().format('YYYY') && moment(workout.createdat).isoWeek() === moment().isoWeek());
 const weeklyProgress = Math.round(sumObject(weeklyWorkouts) / userWeeklyGoal * 100);
 
 const monthlyProgress = Math.round(sumObject(monthlyWorkouts) / (moment().daysInMonth() * (1/7) * userWeeklyGoal)*100);

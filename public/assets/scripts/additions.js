@@ -3,7 +3,7 @@ const workoutsPerUser = JSON.parse(data.usersWithWorkouts);
 const workoutsPerUserCurrentMonth = JSON.parse(data.usersWithWorkoutsCurrentMonth);
 const workoutsForUser = JSON.parse(data.workoutsForUser);
 const deviceWidth = window.screen.width;
-const monthlyWorkouts = workoutsForUser.filter(workout => moment(workout.createdat).format('MM') === moment().format('MM'));
+const monthlyWorkouts = workoutsForUser.filter(workout => moment(workout.createdat).format('YYYY') === moment().format('YYYY') && moment(workout.createdat).format('MM') === moment().format('MM'));
 
 drawBarGraph(null,'month');
 
