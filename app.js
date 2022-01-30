@@ -150,6 +150,7 @@ app.get('/exercises', passportConfig.isAuthenticated, homeController.exercises);
 app.get('/settings', passportConfig.isAuthenticated, homeController.settings);
 app.get('/bet', passportConfig.isAuthenticated, homeController.bet);
 app.post('/postworkout', passportConfig.isAuthenticated, homeController.postWorkout);
+app.post('/postpanicworkout', passportConfig.isAuthenticated, homeController.postPanicWorkout);
 app.post('/createbet', passportConfig.isAuthenticated, homeController.createBet);
 app.post('/postSettings', passportConfig.isAuthenticated, homeController.postSettings);
 app.post('/postGoal', passportConfig.isAuthenticated, homeController.postGoal);

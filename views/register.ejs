@@ -52,7 +52,6 @@
                                                             <input type="checkbox" name="chooseOtherDate" id="chooseOtherDate">
                                                             <label for="chooseOtherDate">Välj en annan dags pass</label>
                                                         </div>
-                                                        
                                                         <div class="date-container" style="display: none;">
                                                             <input type="date" value="<%= date.today %>" min="<%= date.firstAvailableDate %>" max="<%= date.today %>" id="datepickerAnotherday" class="form-control">
                                                         </div>
@@ -73,6 +72,22 @@
                                                 </fieldset> 
                                             </div>
                                         </div>
+
+                                        <div class="main-card mb-3 card">
+                                            <div class="card-body"><h5 class="card-title">Panikpasset</h5>
+                                                <fieldset>
+                                                    <form action="postpanicworkout" method="post">
+                                                        <div class="position-relative form-group">
+                                                            <label for="panicWorkoutMinutes">Hur många effektiva minuter tränades?</label>
+                                                            <input name="panicWorkoutMinutes" id="panicWorkoutMinutes" placeholder="Ange effektiva minuter" type="number" class="form-control"  min="1" max="30" required>
+                                                        </div>
+                                                        <input type="hidden" name='_csrf' , value="<%= _csrf %>">
+                                                        <input type="hidden" name="userId" value="<%= user._id %>">
+                                                        <button type="submit" id='saveBtnPanic' style="display: none;" class="btn btn-success"><i class="fas fa-save"></i> Registera passet</button>
+                                                    </form>
+                                                </fieldset> 
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -80,8 +95,15 @@
                     </div>
                 </div>
                 <script>
-                    var saveButton = document.querySelector('#saveBtn');
+                    
+                    var panicSaveButton = document.querySelector('#saveBtnPanic');
+                    document.querySelector('#panicWorkoutMinutes').addEventListener('keyup', function() {
+                        if(this.value > 0){
+                            panicSaveButton.style.display = '';
+                        }
+                    });
 
+                    var saveButton = document.querySelector('#saveBtn');
                     document.querySelector('#workoutRounds').addEventListener('keyup', function() {
                         if(this.value > 0){
                             saveButton.style.display = '';

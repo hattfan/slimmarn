@@ -117,6 +117,19 @@ exports.postWorkout = (req, res) => {
   });
 }
 
+exports.postPanicWorkout = (req, res) => {
+  const workoutRegister = new WorkoutRegister({
+    userId: req.body.userId,
+    workoutRounds: Number(req.body.panicWorkoutMinutes/5)
+  });
+    
+  workoutRegister.save((err) => {
+    if (err) { throw (err); }
+    req.flash('success', { msg: `Panik-workout är registrerad` });
+    res.redirect('/');
+  });
+}
+
 exports.exercises = (req, res) => {
   Exercise.find({}).sort({ 'Group': 1, 'Name': 1 }).exec((err, exercises) => {
     if (err) { return next(err); }
